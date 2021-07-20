@@ -27,6 +27,7 @@ function searchIngredients(ingredient) {
     }
 }
 
+// Recipes API Request
 function searchRecipe(recipe) {
     //used recipe variable to input recipe search into api url
     var recipeUrl = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + recipe;
