@@ -1,4 +1,4 @@
-var ingredientCard = document.querySelector("#ingredient-card");
+
 
 // Ingredients API Request
 function searchIngredients(ingredient) {
@@ -15,7 +15,8 @@ function searchIngredients(ingredient) {
             return JSON.parse(proxyData.contents);
         })
         .then(function (data) {
-            console.log(data);
+            var ingredientCard = document.querySelector("#ingredient-card");
+
             // Loops through data results and grabs the data 
             for (i = 0; i < data.results.length; i++) {
                 var price = data.results[i].regularPrice;
@@ -60,26 +61,9 @@ function searchRecipe(recipe) {
 };
 
 searchRecipe("egg");
-searchIngredients("eggs");
 
+// Runs searchIngredient function only on the Modal HTML Page
+if (window.location.pathname.indexOf("/modal-test.html") > -1) {
+    searchIngredients("eggs");
+}
 
-
-{/* 
-    <div class="col s4 m3">
-    <div class="card">
-        <div class="card-image">
-            <img id="modal-image"
-                src="https://socialistmodernism.com/wp-content/uploads/2017/07/placeholder-image.png?w=640">
-            <span class="card-title">Card Title</span>
-        </div>
-        <div class="card-content">
-            <p id="modal-brand">Nestle</p>
-            <p id="modal-name">Syrup</p>
-            <p id="modal-price">$1.99</p>
-        </div>
-        <div class="card-action">
-            <i class="material-icons">check_box_outline_blank</i>
-        </div>
-    </div>
-</div> 
-*/}
