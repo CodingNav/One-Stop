@@ -26,6 +26,18 @@ function searchIngredients(ingredient) {
         var image = data.results[i].imageThumbnail;
     }
 }
+function searchRecipe(recipe) {
+    //used recipe variable to input recipe search into api url
+    var recipeUrl = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + recipe;
+    fetch(recipeUrl).then(function (response) {
+        console.log(response);
+        return response.json();
+    }).then(function (data) {
+        console.log(data);
+        console.log(data.meals[0]); //gets the data for the first recipe search result
+    });
+};
 
+searchRecipe("egg");
 searchIngredients("eggs");
 
