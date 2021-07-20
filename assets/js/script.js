@@ -30,7 +30,6 @@ function searchIngredients(ingredient) {
                         <div class="card modal-card">
                             <div class="card-image">
                                 <img src="${image}">
-                                <span class="card-title">Card Title</span>
                             </div>
                             <div class="card-content">
                                 <p>${brand}</p>
