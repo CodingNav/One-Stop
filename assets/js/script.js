@@ -24,19 +24,17 @@ function searchIngredients(ingredient) {
                 var link = "https://www.wholefoodsmarket.com/product/" + data.results[i].slug;
                 var image = data.results[i].imageThumbnail;
 
-                console.log(name);
                 ingredientCard.innerHTML += `
                     <div class="col s4 m3">
                         <div class="card modal-card">
                             <div class="card-image">
-                                <img id="modal-image"
-                                    src="${image}">
+                                <img src="${image}">
                                 <span class="card-title">Card Title</span>
                             </div>
                             <div class="card-content">
-                                <p id="modal-brand">${brand}</p>
-                                <p id="modal-name">${name}</p>
-                                <p id="modal-price">$${price}</p>
+                                <p>${brand}</p>
+                                <p>${name}</p>
+                                <p>$${price}</p>
                             </div>
                             <div class="card-action">
                                 <i class="material-icons">check_box_outline_blank</i>
