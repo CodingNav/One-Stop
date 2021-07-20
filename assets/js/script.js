@@ -24,6 +24,7 @@ function searchIngredients(ingredient) {
                 var link = "https://www.wholefoodsmarket.com/product/" + data.results[i].slug;
                 var image = data.results[i].imageThumbnail;
 
+                // Ingredient Cards for Modal added to page here
                 ingredientCard.innerHTML += `
                     <div class="col s4 m3">
                         <div class="card modal-card">
