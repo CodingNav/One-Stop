@@ -27,7 +27,7 @@ function searchIngredients(ingredient) {
                 console.log(name);
                 ingredientCard.innerHTML += `
                     <div class="col s4 m3">
-                        <div class="card">
+                        <div class="card modal-card">
                             <div class="card-image">
                                 <img id="modal-image"
                                     src="${image}">
