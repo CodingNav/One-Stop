@@ -40,6 +40,45 @@ function searchRecipe(recipe) {
     });
 };
 
+var rowDiv = document.createElement('div');
+var colDiv = document.createElement('div');
+var cardDiv = document.createElement('div');
+var cardImage = document.createElement('div');
+var cardContent = document.createElement('div');
+var Img = document.createElement('img');
+var a = document.createElement('a');
+var i = document.createElement('i');
+var span = document.createElement('span');
+var p = document.createElement('p');
+
+document.querySelector(".result-container").append(rowDiv);
+rowDiv.className = "r2 row ";
+document.querySelector(".r2").appendChild(colDiv);
+colDiv.className = "column2 col s12 m3";
+document.querySelector(".column2").appendChild(cardDiv);
+cardDiv.className = "card2 card";
+
+
+document.querySelector(".card2").appendChild(cardImage);
+cardImage.className = "cardImage2 card-image";
+document.querySelector(".cardImage2").appendChild(Img);
+Img.src = "./assets/images/sample-pic.jpg";
+document.querySelector(".cardImage2").appendChild(a);
+a.className = "btn-f2 btn-floating halfway-fab waves-effect waves-light red";
+document.querySelector(".btn-f2").appendChild(i);
+i.className = "far2 far fa-heart";
+
+
+document.querySelector(".card2").appendChild(cardContent);
+cardContent.className = "cardContent2 card-content";
+document.querySelector(".cardContent2").appendChild(span);
+span.className = "cT2 card-title";
+document.querySelector(".cT2").textContent = "RecipeName";
+document.querySelector(".cardContent2").appendChild(p);
+p.className = "p2";
+document.querySelector(".p2").textContent = "Description";
+
+
 searchRecipe("egg");
 searchIngredients("eggs");
 
