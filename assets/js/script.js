@@ -33,7 +33,7 @@ function searchIngredients(ingredient) {
                                 <img src="${image}">
                             </div>
                             <div class="card-content">
-                                <p>${brand}</p>
+                                <p><b>${brand}</b></p>
                                 <p>${name}</p>
                                 <p>$${price}</p>
                             </div>
