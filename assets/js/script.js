@@ -17,6 +17,7 @@ function searchIngredients(ingredient) {
         .then(function (data) {
             var ingredientCard = document.querySelector("#ingredient-card");
 
+            ingredientCard.innerHTML = "";
             // Loops through data results and grabs the data 
             for (i = 0; i < data.results.length; i++) {
                 var price = data.results[i].regularPrice;
@@ -27,7 +28,7 @@ function searchIngredients(ingredient) {
 
                 // Ingredient Cards for Modal added to page here
                 ingredientCard.innerHTML += `
-                    <div class="col s4 m3">
+                    <div class="col s6 m3 l2">
                         <div class="card modal-card">
                             <div class="card-image">
                                 <img src="${image}">
@@ -65,5 +66,35 @@ searchRecipe("egg");
 // Runs searchIngredient function only on the Modal HTML Page
 if (window.location.pathname.indexOf("/modal-test.html") > -1) {
     searchIngredients("eggs");
+
+    var modalBtn = document.querySelector("#modal-btn");
+    var ingredientModal = document.querySelector("#ingredient-modal");
+    var addToCart = document.querySelector("#add-to-cart");
+    var finishModal = document.querySelector("#finish-modal");
+
+    var testIngredients = ["Tortilla", "Mexican Cheese", "Chicken", "Jalapeno", "Peppers", "Onions", "Garlic Powder"];
+    var currentIndex = 0;
+
+    finishModal.style.display = "none";
+
+    // Click event listener for add to cart button
+    addToCart.addEventListener('click', function() {
+        // Increases index of array by 1
+        currentIndex++;
+
+        // Checking if the end of the array has been reached
+        if (currentIndex == testIngredients.length) {
+            ingredientModal.style.display = "none";
+            finishModal.style.display = "block";
+        }
+        else {
+            // Runs searchIngredients function for each ingredient in array
+            searchIngredients(testIngredients[currentIndex]);
+        }
+    });
+
+
+
+
 }
 

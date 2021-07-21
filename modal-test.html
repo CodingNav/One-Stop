@@ -18,23 +18,30 @@
         .modal-card .card-content {
             height: 155px;
         }
+
+
     </style>
 </head>
 
 <body>
 
     <!-- Modal Trigger -->
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+    <a class="waves-effect waves-light btn modal-trigger" id="modal-btn" href="#modal1">Modal</a>
 
     <!-- Modal Structure -->
     <div id="modal1" class="modal bottom-sheet">
-        <div class="modal-content">
+        <div class="modal-content" id="ingredient-modal">
             <h4>Pick Your Choice of Ingredient</h4>
-            <a class="waves-effect waves-light btn">Add to Cart</a>
+            <a class="waves-effect waves-light btn" id="add-to-cart">Add to Cart</a>
             <h5 id="ingredient-name">Ingredient Name</h5>
 
             <!-- Modal Card -->
             <div class="row" id="ingredient-card"></div>
+        </div>
+
+        <div class="modal-content" id="finish-modal">
+            <h4>You're all set!</h4>
+            <a class="waves-effect waves-light btn modal-close"  id="finish-btn">Finish</a>
         </div>
     </div>
 
