@@ -65,13 +65,12 @@ searchRecipe("egg");
 
 // Runs searchIngredient function only on the Modal HTML Page
 if (window.location.pathname.indexOf("/modal-test.html") > -1) {
-    searchIngredients("eggs");
 
     var modalBtn = document.querySelector("#modal-btn");
     var ingredientModal = document.querySelector("#ingredient-modal");
     var addToCart = document.querySelector("#add-to-cart");
     var finishModal = document.querySelector("#finish-modal");
-
+    var finishBtn = document.querySelector("#finish-btn");
     var testIngredients = ["Tortilla", "Mexican Cheese", "Chicken", "Jalapeno", "Peppers", "Onions", "Garlic Powder"];
     var currentIndex = 0;
 
@@ -93,6 +92,17 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
         }
     });
 
+    modalBtn.addEventListener('click', function() {
+        currentIndex = 0;
+        searchIngredients(testIngredients[0]);
+
+        ingredientModal.style.display = "block";
+        finishModal.style.display = "none";
+    });
+
+    finishBtn.addEventListener('click', function () {
+
+    });
 
 
 
