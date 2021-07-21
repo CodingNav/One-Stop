@@ -7,6 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        /* Modal Card CSS */
+        .modal-card {
+            height: 460px;
+        }
+
+        .modal-card .card-content {
+            height: 155px;
+        }
+    </style>
 </head>
 
 <body>
@@ -17,22 +29,27 @@
     <!-- Modal Structure -->
     <div id="modal1" class="modal bottom-sheet">
         <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+            <h4>Pick Your Choice of Ingredient</h4>
+            <a class="waves-effect waves-light btn">Add to Cart</a>
+            <h5 id="ingredient-name">Ingredient Name</h5>
+
+            <!-- Modal Card -->
+            <div class="row" id="ingredient-card"></div>
         </div>
     </div>
 
+    <!-- <i class="material-icons">check_box</i> -->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
     <script>
+        //  Initializer for Modal from Materialize
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.modal');
             var instances = M.Modal.init(elems);
         });
     </script>
+    <script src="./assets/js/script.js"></script>
 </body>
 
 </html>

@@ -1,4 +1,5 @@
 
+
 // Ingredients API Request
 function searchIngredients(ingredient) {
     // Used a proxy to get rid of CORS error
@@ -14,17 +15,36 @@ function searchIngredients(ingredient) {
             return JSON.parse(proxyData.contents);
         })
         .then(function (data) {
-            console.log(data);
-        })
+            var ingredientCard = document.querySelector("#ingredient-card");
 
-    // Loops through data results and grabs the data 
-    for (i = 0; i < data.results.length; i++) {
-        var price = data.results[i].regularPrice;
-        var brand = data.results[i].brand;
-        var name = data.results[i].name;
-        var link = "https://www.wholefoodsmarket.com/product/" + data.results[i].slug;
-        var image = data.results[i].imageThumbnail;
-    }
+            // Loops through data results and grabs the data 
+            for (i = 0; i < data.results.length; i++) {
+                var price = data.results[i].regularPrice;
+                var brand = data.results[i].brand;
+                var name = data.results[i].name;
+                var link = "https://www.wholefoodsmarket.com/product/" + data.results[i].slug;
+                var image = data.results[i].imageThumbnail;
+
+                // Ingredient Cards for Modal added to page here
+                ingredientCard.innerHTML += `
+                    <div class="col s4 m3">
+                        <div class="card modal-card">
+                            <div class="card-image">
+                                <img src="${image}">
+                            </div>
+                            <div class="card-content">
+                                <p><b>${brand}</b></p>
+                                <p>${name}</p>
+                                <p>$${price}</p>
+                            </div>
+                            <div class="card-action">
+                                <i class="material-icons">check_box_outline_blank</i>
+                            </div>
+                        </div>
+                    </div> 
+                    `;
+            }
+        })
 }
 
 // Recipes API Request
@@ -41,5 +61,9 @@ function searchRecipe(recipe) {
 };
 
 searchRecipe("egg");
-searchIngredients("eggs");
+
+// Runs searchIngredient function only on the Modal HTML Page
+if (window.location.pathname.indexOf("/modal-test.html") > -1) {
+    searchIngredients("eggs");
+}
 
