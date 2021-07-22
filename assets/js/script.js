@@ -162,6 +162,11 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
         // Checks box when clicked
         if (event.target.textContent == "check_box_outline_blank") {
             event.target.textContent = "check_box";
+            event.target.parentElement.parentElement.style.border = "3px solid lightgreen";
+        }
+        else if (event.target.textContent == "check_box") {
+            event.target.textContent = "check_box_outline_blank";
+            event.target.parentElement.parentElement.style.border = "none";
         }
     })
 }
