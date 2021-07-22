@@ -8,7 +8,6 @@ function searchIngredients(ingredient) {
 
     fetch(ingredientsURL)
         .then(function (response) {
-            console.log(response);
             return response.json();
         })
         .then(function (proxyData) {
@@ -39,7 +38,8 @@ function searchIngredients(ingredient) {
                                 <p>$${price}</p>
                             </div>
                             <div class="card-action">
-                                <i class="material-icons">check_box_outline_blank</i>
+                                <i class="material-icons checkbox-outline">check_box_outline_blank</i>
+                                <i class="material-icons checkbox" style="display:none">check_box</i>
                             </div>
                         </div>
                     </div> 
@@ -53,7 +53,6 @@ function searchRecipe(recipe) {
     //used recipe variable to input recipe search into api url
     var recipeUrl = "https://www.themealdb.com/api/json/v1/1/search.php?s=" + recipe;
     fetch(recipeUrl).then(function (response) {
-        console.log(response);
         return response.json();
     }).then(function (data) {
         console.log(data);
@@ -67,14 +66,17 @@ searchRecipe("egg");
 if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     var modalBtn = document.querySelector("#modal-btn");
-    var ingredientModal = document.querySelector("#ingredient-modal");
+    var ingredientCard = document.querySelector("#ingredient-card");
+    var checkbox = document.querySelector(".checkbox");
+    var checkboxOutline = document.querySelector(".checkbox-outline");
+    var ingredientContent = document.querySelector("#ingredient-content");
     var addToCart = document.querySelector("#add-to-cart");
-    var finishModal = document.querySelector("#finish-modal");
+    var finishContent = document.querySelector("#finish-content");
     var finishBtn = document.querySelector("#finish-btn");
     var testIngredients = ["Tortilla", "Mexican Cheese", "Chicken", "Jalapeno", "Peppers", "Onions", "Garlic Powder"];
     var currentIndex = 0;
 
-    finishModal.style.display = "none";
+    finishContent.style.display = "none";
 
     // Click event listener for add to cart button
     addToCart.addEventListener('click', function() {
@@ -83,8 +85,8 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
         // Checking if the end of the array has been reached
         if (currentIndex == testIngredients.length) {
-            ingredientModal.style.display = "none";
-            finishModal.style.display = "block";
+            ingredientContent.style.display = "none";
+            finishContent.style.display = "block";
         }
         else {
             // Runs searchIngredients function for each ingredient in array
@@ -92,18 +94,27 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
         }
     });
 
+    // Resets Modal when user reclicks button
     modalBtn.addEventListener('click', function() {
         currentIndex = 0;
         searchIngredients(testIngredients[0]);
 
-        ingredientModal.style.display = "block";
-        finishModal.style.display = "none";
+        ingredientContent.style.display = "block";
+        finishContent.style.display = "none";
     });
 
+    // For finish button
     finishBtn.addEventListener('click', function () {
 
     });
 
+    // For checkboxes 
+    ingredientCard.addEventListener('click', function (event) {
+        if (event.target.textContent = "check_box_outline_blank") {
+            checkbox.style.display = "block";
+            checkboxOutline.style.display = "none";
+        }
+    })
 
 
 }
