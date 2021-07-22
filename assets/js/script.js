@@ -15,8 +15,9 @@ function searchIngredients(ingredient) {
         })
         .then(function (data) {
             var ingredientCard = document.querySelector("#ingredient-card");
-
             ingredientCard.innerHTML = "";
+
+            document.querySelector("#ingredient-name").textContent = ingredient;
             // Loops through data results and grabs the data 
             for (i = 0; i < data.results.length; i++) {
                 var price = data.results[i].regularPrice;
