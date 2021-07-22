@@ -44,6 +44,9 @@ function searchIngredients(ingredient) {
                     </div> 
                     `;
             }
+            var firstCard = ingredientCard.querySelector(".modal-card");
+            firstCard.querySelector(".checkbox-outline").textContent = "check_box";
+            firstCard.style.border = "3px solid lightgreen";
         })
 }
 
