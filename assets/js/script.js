@@ -164,7 +164,5 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
             event.target.textContent = "check_box";
         }
     })
-
-
 }
 
