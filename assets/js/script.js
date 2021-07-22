@@ -67,8 +67,6 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     var modalBtn = document.querySelector("#modal-btn");
     var ingredientCard = document.querySelector("#ingredient-card");
-    var checkbox = document.querySelector(".checkbox");
-    var checkboxOutline = document.querySelector(".checkbox-outline");
     var ingredientContent = document.querySelector("#ingredient-content");
     var addToCart = document.querySelector("#add-to-cart");
     var finishContent = document.querySelector("#finish-content");
@@ -110,7 +108,10 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     // For checkboxes 
     ingredientCard.addEventListener('click', function (event) {
-        if (event.target.textContent = "check_box_outline_blank") {
+        if (event.target.textContent == "check_box_outline_blank") {
+            var checkbox = document.querySelector(".checkbox");
+            var checkboxOutline = document.querySelector(".checkbox-outline");
+            
             checkbox.style.display = "block";
             checkboxOutline.style.display = "none";
         }
