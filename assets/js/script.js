@@ -39,7 +39,6 @@ function searchIngredients(ingredient) {
                             </div>
                             <div class="card-action">
                                 <i class="material-icons checkbox-outline">check_box_outline_blank</i>
-                                <i class="material-icons checkbox" style="display:none">check_box</i>
                             </div>
                         </div>
                     </div> 
@@ -106,14 +105,12 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     });
 
-    // For checkboxes 
+    // For modal card checkboxes 
     ingredientCard.addEventListener('click', function (event) {
+
+        // Checks box when clicked
         if (event.target.textContent == "check_box_outline_blank") {
-            var checkbox = document.querySelector(".checkbox");
-            var checkboxOutline = document.querySelector(".checkbox-outline");
-            
-            checkbox.style.display = "block";
-            checkboxOutline.style.display = "none";
+            event.target.textContent = "check_box";
         }
     })
 
