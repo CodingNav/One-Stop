@@ -48,9 +48,11 @@ function searchIngredients(ingredient) {
                     </div> 
                     `;
             }
+            // Adds default check to first ingredient card in modal
             var firstCard = ingredientCard.querySelector(".modal-card");
             firstCard.querySelector(".checkbox-outline").textContent = "check_box";
             firstCard.style.border = "3px solid lightgreen";
+            firstCard.classList.add("checked");
         })
 }
 
@@ -130,11 +132,14 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
     var doneBtn = document.querySelector("#done-btn");
     var testIngredients = ["Tortilla", "Mexican Cheese", "Chicken", "Jalapeno", "Peppers", "Onions", "Garlic Powder"];
     var currentIndex = 0;
+    var ingredientsChosen = [];
 
     doneContent.style.display = "none";
 
     // Click event listener for add to cart button
     nextBtn.addEventListener('click', function() {
+
+
         // Increases index of array by 1
         currentIndex++;
 
@@ -169,10 +174,12 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
         if (event.target.textContent == "check_box_outline_blank") {
             event.target.textContent = "check_box";
             event.target.parentElement.parentElement.style.border = "3px solid lightgreen";
+            event.target.parentElement.parentElement.classList.add("checked");
         }
         else if (event.target.textContent == "check_box") {
             event.target.textContent = "check_box_outline_blank";
             event.target.parentElement.parentElement.style.border = "none";
+            event.target.parentElement.parentElement.classList.remove("checked");
         }
     })
 }
