@@ -125,23 +125,23 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
     var modalBtn = document.querySelector("#modal-btn");
     var ingredientCard = document.querySelector("#ingredient-card");
     var ingredientContent = document.querySelector("#ingredient-content");
-    var addToCart = document.querySelector("#add-to-cart");
-    var finishContent = document.querySelector("#finish-content");
-    var finishBtn = document.querySelector("#finish-btn");
+    var nextBtn = document.querySelector("#next-btn");
+    var doneContent = document.querySelector("#done-content");
+    var doneBtn = document.querySelector("#done-btn");
     var testIngredients = ["Tortilla", "Mexican Cheese", "Chicken", "Jalapeno", "Peppers", "Onions", "Garlic Powder"];
     var currentIndex = 0;
 
-    finishContent.style.display = "none";
+    doneContent.style.display = "none";
 
     // Click event listener for add to cart button
-    addToCart.addEventListener('click', function() {
+    nextBtn.addEventListener('click', function() {
         // Increases index of array by 1
         currentIndex++;
 
         // Checking if the end of the array has been reached
         if (currentIndex == testIngredients.length) {
             ingredientContent.style.display = "none";
-            finishContent.style.display = "block";
+            doneContent.style.display = "block";
         }
         else {
             // Runs searchIngredients function for each ingredient in array
@@ -155,11 +155,11 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
         searchIngredients(testIngredients[0]);
 
         ingredientContent.style.display = "block";
-        finishContent.style.display = "none";
+        doneContent.style.display = "none";
     });
 
-    // For finish button
-    finishBtn.addEventListener('click', function () {
+    // For done button
+    doneBtn.addEventListener('click', function () {
 
     });
 
@@ -177,3 +177,10 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
     })
 }
 
+/* 
+var ingredientsChosen = [{image: , brand: name: blahblah, price: 3.67}, {}];
+cart = {
+    recipes: [000,001]
+    ingredients: [{image: , brand: name: blahblah, price: 3.67},{}]
+}
+*/
