@@ -55,10 +55,12 @@ function searchIngredients(ingredient) {
         })
 }
 
+// Grabs information for each ingredient and adds it to the cards
 function finalIngredients(chosenIngredients) {
     var chosenCards = document.querySelector("#chosen-ingredients");
     chosenCards.innerHTML = "";
 
+    // Loops through array to get different info
     for (i = 0; i < chosenIngredients.length; i++) {
         var price = chosenIngredients[i].price;
         var brand = chosenIngredients[i].brand;
@@ -232,7 +234,7 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
     })
 }
 
-/*
+/* For Navleen's Reference
 var ingredientsChosen = [{image: , brand: name: blahblah, price: 3.67}, {}];
 cart = {
     recipes: [000,001]
