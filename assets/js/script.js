@@ -29,15 +29,18 @@ function searchIngredients(ingredient) {
                 // Ingredient Cards for Modal added to page here
                 ingredientCard.innerHTML += `
                     <div class="col s6 m3 l2">
+                       
                         <div class="card modal-card">
-                            <div class="card-image">
-                                <img src="${image}">
-                            </div>
-                            <div class="card-content">
-                                <p><b>${brand}</b></p>
-                                <p>${name}</p>
-                                <p>$${price}</p>
-                            </div>
+                            <a href="${link}" target="_blank" style="display:block; color:black">
+                                <div class="card-image">
+                                    <img src="${image}">
+                                </div>
+                                <div class="card-content">
+                                    <p><b>${brand}</b></p>
+                                    <p>${name}</p>
+                                    <p>$${price}</p>
+                                </div>
+                            </a>
                             <div class="card-action">
                                 <i class="material-icons checkbox-outline">check_box_outline_blank</i>
                             </div>
@@ -162,7 +165,6 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     // For modal card checkboxes 
     ingredientCard.addEventListener('click', function (event) {
-
         // Checks box when clicked
         if (event.target.textContent == "check_box_outline_blank") {
             event.target.textContent = "check_box";
