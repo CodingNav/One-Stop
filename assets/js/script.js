@@ -36,9 +36,9 @@ function searchIngredients(ingredient) {
                                     <img src="${image}">
                                 </div>
                                 <div class="card-content">
-                                    <p><b>${brand}</b></p>
-                                    <p>${name}</p>
-                                    <p>$${price}</p>
+                                    <p class="brand"><b>${brand}</b></p>
+                                    <p class="name">${name}</p>
+                                    <p class="price">$${price}</p>
                                 </div>
                             </a>
                             <div class="card-action">
@@ -138,8 +138,23 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     // Click event listener for add to cart button
     nextBtn.addEventListener('click', function() {
-
-
+        var cardArray = document.querySelectorAll(".checked");
+  
+        // Loops through cards checked by user
+        for (i = 0; i < cardArray.length; i++) {
+            var card = cardArray[i];
+            // Adds each cards info to this object
+            var ingredientInfo = {
+                link: card.querySelector("a").href,
+                image: card.querySelector("img").src,
+                brand: card.querySelector(".brand").textContent,
+                name: card.querySelector(".name").textContent,
+                price: card.querySelector(".price").textContent
+            }
+            // Pushes cards info into array
+            ingredientsChosen.push(ingredientInfo);
+        }
+       
         // Increases index of array by 1
         currentIndex++;
 
