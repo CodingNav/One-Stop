@@ -215,11 +215,6 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
         doneContent.style.display = "none";
     });
 
-    // For done button
-    doneBtn.addEventListener('click', function () {
-
-    });
-
     // For modal card checkboxes 
     ingredientModal.addEventListener('click', function (event) {
         // Checks box when clicked
@@ -232,6 +227,38 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
             event.target.parentElement.parentElement.classList.remove("checked");
         }
     })
+
+    // For done button
+    doneBtn.addEventListener('click', function () {
+        var cardArray = document.querySelectorAll(".checked");
+        var cart = {
+            recipes: [],
+            ingredients: []
+        };
+
+        // Checks if there was data saved in local storage already
+        // This helps add info to local storage, rather than replace
+        if (localStorage.getItem('cart') != null) {
+            cart = JSON.parse(localStorage.getItem('cart'));
+        }
+        // Loops through cards checked by user
+        for (i = 0; i < cardArray.length; i++) {
+            var card = cardArray[i];
+            // Adds each cards info to this object
+            var ingredientInfo = {
+                link: card.querySelector("a").href,
+                image: card.querySelector("img").src,
+                brand: card.querySelector(".brand").textContent,
+                name: card.querySelector(".name").textContent,
+                price: card.querySelector(".price").textContent
+            }
+            // Pushes cards info into array
+            cart.ingredients.push(ingredientInfo);
+        }
+        // Saved information to localStorage under name cart
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+    });
 }
 
 /* For Navleen's Reference
