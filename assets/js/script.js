@@ -174,7 +174,7 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     // Click event listener for add to cart button
     nextBtn.addEventListener('click', function () {
-        var cardArray = document.querySelectorAll(".checked");
+        var cardArray = document.querySelectorAll("#ingredient-card .checked");
 
         // Loops through cards checked by user
         for (i = 0; i < cardArray.length; i++) {
@@ -230,7 +230,7 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     // For done button
     doneBtn.addEventListener('click', function () {
-        var cardArray = document.querySelectorAll(".checked");
+        var cardArray = document.querySelectorAll("#chosen-ingredients .checked");
         var cart = {
             recipes: [],
             ingredients: []
@@ -260,11 +260,3 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     });
 }
-
-/* For Navleen's Reference
-var ingredientsChosen = [{image: , brand: name: blahblah, price: 3.67}, {}];
-cart = {
-    recipes: [000,001]
-    ingredients: [{image: , brand: name: blahblah, price: 3.67},{}]
-}
-*/
