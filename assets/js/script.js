@@ -41,7 +41,7 @@ function searchIngredients(ingredient) {
                                     <p class="price">$${price}</p>
                                 </div>
                             </a>
-                            <div class="card-action">
+                            <div class="card-action center-align">
                                 <i class="material-icons checkbox-outline">check_box_outline_blank</i>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ function finalIngredients(chosenIngredients) {
                         <p class="price">${price}</p>
                     </div>
                 </a>
-                <div class="card-action">
+                <div class="card-action center-align">
                     <i class="material-icons checkbox-outline">check_box</i>
                 </div>
             </div>
@@ -92,17 +92,60 @@ function finalIngredients(chosenIngredients) {
     }
 }
 
-var count = 0;
-document.querySelector(".searchIcon").addEventListener("click", function (){
-    count += 1;
-var previousSearchLength = localStorage.getItem("lengthOfSearch");
+// Recipe API Request by ID
+function loadRecipeByID(ID) {
+    var recipeURL = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + ID
 
-if(count >= 2){
-    for(var y = 0; y < previousSearchLength; y++){
-        document.querySelector(".column" + [y]).remove();
+    fetch(recipeURL)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+            var recipeName = document.querySelector("#recipe-name");
+            var recipeImg = document.querySelector("#recipe-img");
+            var ingredientList = document.querySelector("#ingredient-list");
+            var recipeInstructions = document.querySelector("#recipe-instructions");
+            ingredientList.innerHTML = "";
+
+            recipeName.innerHTML = data.meals[0].strMeal;
+            recipeImg.src = data.meals[0].strMealThumb;
+            recipeInstructions.innerHTML = data.meals[0].strInstructions;
+            var tutorial = data.meals[0].strYoutube;
+            var ingredients = [];
+            var measurements = [];
+            // Loops through the strIngredient key and pushes only the ones that aren't null or "" 
+            // into the ingredients array
+            // Also, loops through the strMeasure key and pushes into the measurements array
+            for (i = 1; i < 21; i++) {
+                var ing = data.meals[0]["strIngredient" + i];
+                var measure = data.meals[0]["strMeasure" + i];
+                if (ing != null && ing != "") {
+                    ingredients.push(ing);
+                    measurements.push(measure);
+                    ingredientList.innerHTML += `<li>${measure} <span>${ing}</span></li>`
+                }
+            }
+
+
+
+
+        })
+}
+
+loadRecipeByID("52772");
+
+var count = 0;
+document.querySelector(".searchIcon").addEventListener("click", function () {
+    count += 1;
+    var previousSearchLength = localStorage.getItem("lengthOfSearch");
+
+    if (count >= 2) {
+        for (var y = 0; y < previousSearchLength; y++) {
+            document.querySelector(".column" + [y]).remove();
+        };
+
     };
-    
-};
     var recipe = document.querySelector("#search-input").value;
     searchRecipe(recipe);
 });
@@ -127,10 +170,10 @@ function searchRecipe(recipe) {
 
 function recipeCard(data, length) {
     //data from recipe api is passed to this function and used to get the recipe names and recipe descriptions
-   
+
 
     for (var x = 0; x < length; x++) {
-        
+
 
         // var rowDiv = document.createElement('div');
         var colDiv = document.createElement('div');
@@ -172,20 +215,21 @@ function recipeCard(data, length) {
         p.className = "p" + [x];
         document.querySelector(".p" + [x]).textContent = data.meals[x].strCategory; //Description of meal
     };
-    
+
 };
 
 // Runs searchRecipe function only on the Search HTML Page
 if (window.location.pathname.indexOf("/search.html") > -1) {
-    
+
 }
 
 // Runs code for modal only on the Modal HTML Page
-if (window.location.pathname.indexOf("/modal-test.html") > -1) {
+if (window.location.pathname.indexOf("/recipe.html") > -1) {
 
     var modalBtn = document.querySelector("#modal-btn");
     var ingredientModal = document.querySelector("#ingredient-modal");
     var ingredientContent = document.querySelector("#ingredient-content");
+    var substituteForm = document.querySelector("#substitute-search");
     var nextBtn = document.querySelector("#next-btn");
     var doneContent = document.querySelector("#done-content");
     var doneBtn = document.querySelector("#done-btn");
@@ -195,6 +239,18 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     doneContent.style.display = "none";
 
+
+    //  Initializer for Modal from Materialize
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.modal');
+        var instances = M.Modal.init(elems);
+    });
+
+    substituteForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var userSubstitute = document.querySelector("#search-input").value;
+        searchIngredients(userSubstitute);
+    });
     // Click event listener for add to cart button
     nextBtn.addEventListener('click', function () {
         var cardArray = document.querySelectorAll("#ingredient-card .checked");
