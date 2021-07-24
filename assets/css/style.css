@@ -1,26 +1,26 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+
 html {
     min-height: 100%;
-    background: linear-gradient(to bottom right, #c3e3d7, #76a392 ,#6e9585);
+    background: linear-gradient(to bottom right,#26a69a,#c3e3d7, #76a392 ,#6e9585, #ffab91);
+
+
+}
+.body {
+    background: #26a69a;
+    color: #26a69a ;
+    margin: 0;
+    font-family:sans-serif 'Trebuchet MS' 'Lucida Sans Unicode';
+    font-size:inherit
 
 }
 
-.nav-wraper {
-    box-shadow: none;
-}
-
-main {
-    margin-top: 150px;
-}
-.search-bar {
-    background-color: none;
-}
-
-.input-field-primary {
-    display: flex;
-}
-
-.search-bar-container {
-    border: solid;
-    padding: 20px;
-    margin: 10px 80px;
-}
+.row {  
+    display:relative;
+    flex-wrap: wrap;
+  }
