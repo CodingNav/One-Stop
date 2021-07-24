@@ -129,6 +129,8 @@ function loadRecipeByID(ID) {
                 }
             }
 
+            loadModal(ingredients);
+
         })
 }
 

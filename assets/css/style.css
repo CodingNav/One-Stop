@@ -169,6 +169,11 @@ body {
 
 
 /* MODAL CSS (Navleen) */
+
+#ingredient-name {
+    text-transform: capitalize;
+}
+
 /* Modal Card CSS */
 
 .modal-card {
