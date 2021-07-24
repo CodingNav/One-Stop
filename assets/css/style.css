@@ -124,7 +124,7 @@ body {
     padding: 0 30px;
 }
 
-.card {
+.result-container .card {
     height: 350px;
     padding: 20px;
     background: #fff;
@@ -132,31 +132,31 @@ body {
     border-radius: 25px;
 }
 
-.card:hover {
+.result-container .card:hover {
     box-shadow: 0 0 5px 6px #afc5d7;
     /*  x y blur spread color*/
 }
 
-.card-image:hover {
+.result-container .card-image:hover {
     cursor: pointer;
     box-shadow: 0 0 5px 4px #afc5d7;
     /*  x y blur spread color*/
 }
 
-.card .card-content {
+.result-container .card .card-content {
     padding: 24px 0;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
 }
 
-.card .card-content .card-title {
+.result-container .card .card-content .card-title {
     line-height: 20px;
     font-size: 20px;
     font-weight: 600;
 }
 
-.card .card-content p {
+.result-container .card .card-content p {
     /* border: solid; */
     margin-bottom: 5px;
 }
@@ -274,7 +274,7 @@ body {
     .row .col.m3 {
         width: 33%;
     }
-    .card .card-content .card-title {
+    .result-container .card .card-content .card-title {
         font-size: 18px;
     }
 }
@@ -291,12 +291,12 @@ body {
         width: 90%;
         margin-left: auto;
     }
-    .card {
+    .result-container .card {
         height: auto;
         background: #fff;
         border-radius: 20px;
     }
-    .card .card-image img {
+    .result-container .card .card-image img {
         height: 250px;
         object-fit: cover;
         object-position: center;
@@ -308,20 +308,20 @@ body {
         width: 100%;
         margin-left: auto;
     }
-    .card .card-content .card-title {
+    .result-container .card .card-content .card-title {
         line-height: 15px;
         font-size: 16px;
     }
-    .card .card-content p {
+    .result-container .card .card-content p {
         font-size: 12px;
     }
-    .card {
+    .result-container .card {
         height: auto;
         padding: 0;
         background: #fff;
         border-radius: 0;
     }
-    .card .card-image img {
+    .result-container .card .card-image img {
         height: 120px;
     }
 }
