@@ -48,10 +48,22 @@ function searchIngredients(ingredient) {
                     </div> 
                     `;
             }
+
+            // Shows message when ingredient isn't available
+            if (data.results.length == 0) {
+                ingredientCard.innerHTML = `
+                <div class="center-align">
+                <p><b>Sorry this ingredient is not available or sold out</b></p>
+                <p><i>Please use the substitute search bar to find an alternative item</i></p>
+                </div>
+                `
+            }
+            else {
             // Adds default check to first ingredient card in modal
             var firstCard = ingredientCard.querySelector(".modal-card");
             firstCard.querySelector(".checkbox-outline").textContent = "check_box";
             firstCard.classList.add("checked");
+            }
         })
 }
 
@@ -137,9 +149,11 @@ function loadRecipeByID(ID) {
 function loadModal(ingredients) {
 
     var modalBtn = document.querySelector("#modal-btn");
-    var ingredientContent = document.querySelector("#ingredient-content");
     var nextBtn = document.querySelector("#next-btn");
+    var doneBtn = document.querySelector("#done-btn");
+    var ingredientContent = document.querySelector("#ingredient-content");
     var doneContent = document.querySelector("#done-content");
+
     var ingredientsChosen = [];
     var currentIndex = 0;
     // Click event listener for add to cart button
@@ -183,6 +197,38 @@ function loadModal(ingredients) {
 
         ingredientContent.style.display = "block";
         doneContent.style.display = "none";
+    });
+
+     // For done button
+     doneBtn.addEventListener('click', function () {
+        var cardArray = document.querySelectorAll("#chosen-ingredients .checked");
+        var cart = {
+            recipes: [],
+            ingredients: []
+        };
+
+        // Checks if there was data saved in local storage already
+        // This helps add info to local storage, rather than replace
+        if (localStorage.getItem('cart') != null) {
+            cart = JSON.parse(localStorage.getItem('cart'));
+        }
+        // Loops through cards checked by user
+        for (i = 0; i < cardArray.length; i++) {
+            var card = cardArray[i];
+            // Adds each cards info to this object
+            var ingredientInfo = {
+                link: card.querySelector("a").href,
+                image: card.querySelector("img").src,
+                brand: card.querySelector(".brand").textContent,
+                name: card.querySelector(".name").textContent,
+                price: card.querySelector(".price").textContent
+            }
+            // Pushes cards info into array
+            cart.ingredients.push(ingredientInfo);
+        }
+        // Saved information to localStorage under name cart
+        localStorage.setItem('cart', JSON.stringify(cart));
+
     });
 }
 loadRecipeByID("52772");
@@ -281,7 +327,6 @@ if (window.location.pathname.indexOf("/recipe.html") > -1) {
     var ingredientModal = document.querySelector("#ingredient-modal");
     var substituteForm = document.querySelector("#substitute-search");
     var doneContent = document.querySelector("#done-content");
-    var doneBtn = document.querySelector("#done-btn");
 
     doneContent.style.display = "none";
 
@@ -309,36 +354,4 @@ if (window.location.pathname.indexOf("/recipe.html") > -1) {
             event.target.parentElement.parentElement.classList.remove("checked");
         }
     })
-
-    // For done button
-    doneBtn.addEventListener('click', function () {
-        var cardArray = document.querySelectorAll("#chosen-ingredients .checked");
-        var cart = {
-            recipes: [],
-            ingredients: []
-        };
-
-        // Checks if there was data saved in local storage already
-        // This helps add info to local storage, rather than replace
-        if (localStorage.getItem('cart') != null) {
-            cart = JSON.parse(localStorage.getItem('cart'));
-        }
-        // Loops through cards checked by user
-        for (i = 0; i < cardArray.length; i++) {
-            var card = cardArray[i];
-            // Adds each cards info to this object
-            var ingredientInfo = {
-                link: card.querySelector("a").href,
-                image: card.querySelector("img").src,
-                brand: card.querySelector(".brand").textContent,
-                name: card.querySelector(".name").textContent,
-                price: card.querySelector(".price").textContent
-            }
-            // Pushes cards info into array
-            cart.ingredients.push(ingredientInfo);
-        }
-        // Saved information to localStorage under name cart
-        localStorage.setItem('cart', JSON.stringify(cart));
-
-    });
 }
