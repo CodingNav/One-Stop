@@ -1,15 +1,45 @@
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
+.center {
+    display: flex;
+    justify-content: center;
+}
+.bg-project-green {
+    background: #c3e3d7;
+}
+.p-0 {
+    padding: 0;
+}
+.heading-font {
+    font-family: 'Nothing You Could Do', cursive;
+    font-size: 32px;
 }
 
+    /* nav bar */
+/* nav {
+    padding: 100px;
+} */
+.nav-wraper {
+    box-shadow: none;
+    border-bottom: solid;
+    height: 100px;
+    border-bottom: solid;
+    border-color: #fff;
+    padding: 20px 0 100px 0;
+}
 
-html {
-    min-height: 100%;
-    background: linear-gradient(to bottom right,#26a69a,#c3e3d7, #76a392 ,#6e9585, #ffab91);
+    /* logo */
+nav .brand-logo{
+    font-family: 'Monofett', cursive;    font-weight: 100px;
+    font-size: 3rem;
+    background: #e8b399; /*rgb(179, 171, 183) */
+    color: #c3e3d7;
+    padding: 5px 20px 10px;
+    margin-left: 60px;
+    border-radius: 50px;
+}
 
-
+    /* search bar */
+.nav-list {
+    margin-right: 60px;
 }
 .body {
     background: #26a69a;
@@ -19,8 +49,3 @@ html {
     font-size:inherit
 
 }
-
-.row {  
-    display:relative;
-    flex-wrap: wrap;
-  }
