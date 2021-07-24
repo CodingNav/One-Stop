@@ -102,6 +102,15 @@ function loadRecipeByID(ID) {
         })
         .then(function (data) {
             console.log(data);
+            var modalBtn = document.querySelector("#modal-btn");
+            var ingredientContent = document.querySelector("#ingredient-content");
+            var nextBtn = document.querySelector("#next-btn");
+            var doneContent = document.querySelector("#done-content");
+
+            var testIngredients = ["Tortilla", "Mexican Cheese", "Chicken", "Jalapeno", "Peppers", "Onions", "Garlic Powder"];
+            var currentIndex = 0;
+            var ingredientsChosen = [];
+
             var recipeName = document.querySelector("#recipe-name");
             var recipeImg = document.querySelector("#recipe-img");
             var ingredientList = document.querySelector("#ingredient-list");
@@ -127,7 +136,48 @@ function loadRecipeByID(ID) {
                 }
             }
 
+            // Click event listener for add to cart button
+            nextBtn.addEventListener('click', function () {
+                var cardArray = document.querySelectorAll("#ingredient-card .checked");
 
+                // Loops through cards checked by user
+                for (i = 0; i < cardArray.length; i++) {
+                    var card = cardArray[i];
+                    // Adds each cards info to this object
+                    var ingredientInfo = {
+                        link: card.querySelector("a").href,
+                        image: card.querySelector("img").src,
+                        brand: card.querySelector(".brand").textContent,
+                        name: card.querySelector(".name").textContent,
+                        price: card.querySelector(".price").textContent
+                    }
+                    // Pushes cards info into array
+                    ingredientsChosen.push(ingredientInfo);
+                }
+
+                // Increases index of array by 1
+                currentIndex++;
+
+                // Checking if the end of the array has been reached
+                if (currentIndex == testIngredients.length) {
+                    ingredientContent.style.display = "none";
+                    doneContent.style.display = "block";
+                    finalIngredients(ingredientsChosen);
+                }
+                else {
+                    // Runs searchIngredients function for each ingredient in array
+                    searchIngredients(testIngredients[currentIndex]);
+                }
+            });
+
+            // Resets Modal when user reclicks button
+            modalBtn.addEventListener('click', function () {
+                currentIndex = 0;
+                searchIngredients(testIngredients[0]);
+
+                ingredientContent.style.display = "block";
+                doneContent.style.display = "none";
+            });
 
 
         })
@@ -135,20 +185,20 @@ function loadRecipeByID(ID) {
 
 loadRecipeByID("52772");
 
-var count = 0;
-document.querySelector(".searchIcon").addEventListener("click", function () {
-    count += 1;
-    var previousSearchLength = localStorage.getItem("lengthOfSearch");
+// var count = 0;
+// document.querySelector(".searchIcon").addEventListener("click", function () {
+//     count += 1;
+//     var previousSearchLength = localStorage.getItem("lengthOfSearch");
 
-    if (count >= 2) {
-        for (var y = 0; y < previousSearchLength; y++) {
-            document.querySelector(".column" + [y]).remove();
-        };
+//     if (count >= 2) {
+//         for (var y = 0; y < previousSearchLength; y++) {
+//             document.querySelector(".column" + [y]).remove();
+//         };
 
-    };
-    var recipe = document.querySelector("#search-input").value;
-    searchRecipe(recipe);
-});
+//     };
+//     var recipe = document.querySelector("#search-input").value;
+//     searchRecipe(recipe);
+// });
 
 
 
@@ -226,19 +276,12 @@ if (window.location.pathname.indexOf("/search.html") > -1) {
 // Runs code for modal only on the Modal HTML Page
 if (window.location.pathname.indexOf("/recipe.html") > -1) {
 
-    var modalBtn = document.querySelector("#modal-btn");
     var ingredientModal = document.querySelector("#ingredient-modal");
-    var ingredientContent = document.querySelector("#ingredient-content");
     var substituteForm = document.querySelector("#substitute-search");
-    var nextBtn = document.querySelector("#next-btn");
     var doneContent = document.querySelector("#done-content");
     var doneBtn = document.querySelector("#done-btn");
-    var testIngredients = ["Tortilla", "Mexican Cheese", "Chicken", "Jalapeno", "Peppers", "Onions", "Garlic Powder"];
-    var currentIndex = 0;
-    var ingredientsChosen = [];
 
     doneContent.style.display = "none";
-
 
     //  Initializer for Modal from Materialize
     document.addEventListener('DOMContentLoaded', function () {
@@ -250,48 +293,6 @@ if (window.location.pathname.indexOf("/recipe.html") > -1) {
         event.preventDefault();
         var userSubstitute = document.querySelector("#search-input").value;
         searchIngredients(userSubstitute);
-    });
-    // Click event listener for add to cart button
-    nextBtn.addEventListener('click', function () {
-        var cardArray = document.querySelectorAll("#ingredient-card .checked");
-
-        // Loops through cards checked by user
-        for (i = 0; i < cardArray.length; i++) {
-            var card = cardArray[i];
-            // Adds each cards info to this object
-            var ingredientInfo = {
-                link: card.querySelector("a").href,
-                image: card.querySelector("img").src,
-                brand: card.querySelector(".brand").textContent,
-                name: card.querySelector(".name").textContent,
-                price: card.querySelector(".price").textContent
-            }
-            // Pushes cards info into array
-            ingredientsChosen.push(ingredientInfo);
-        }
-
-        // Increases index of array by 1
-        currentIndex++;
-
-        // Checking if the end of the array has been reached
-        if (currentIndex == testIngredients.length) {
-            ingredientContent.style.display = "none";
-            doneContent.style.display = "block";
-            finalIngredients(ingredientsChosen);
-        }
-        else {
-            // Runs searchIngredients function for each ingredient in array
-            searchIngredients(testIngredients[currentIndex]);
-        }
-    });
-
-    // Resets Modal when user reclicks button
-    modalBtn.addEventListener('click', function () {
-        currentIndex = 0;
-        searchIngredients(testIngredients[0]);
-
-        ingredientContent.style.display = "block";
-        doneContent.style.display = "none";
     });
 
     // For modal card checkboxes 
