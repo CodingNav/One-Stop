@@ -102,14 +102,6 @@ function loadRecipeByID(ID) {
         })
         .then(function (data) {
             console.log(data);
-            var modalBtn = document.querySelector("#modal-btn");
-            var ingredientContent = document.querySelector("#ingredient-content");
-            var nextBtn = document.querySelector("#next-btn");
-            var doneContent = document.querySelector("#done-content");
-
-            var testIngredients = ["Tortilla", "Mexican Cheese", "Chicken", "Jalapeno", "Peppers", "Onions", "Garlic Powder"];
-            var currentIndex = 0;
-            var ingredientsChosen = [];
 
             var recipeName = document.querySelector("#recipe-name");
             var recipeImg = document.querySelector("#recipe-img");
@@ -121,6 +113,7 @@ function loadRecipeByID(ID) {
             recipeImg.src = data.meals[0].strMealThumb;
             recipeInstructions.innerHTML = data.meals[0].strInstructions;
             var tutorial = data.meals[0].strYoutube;
+
             var ingredients = [];
             var measurements = [];
             // Loops through the strIngredient key and pushes only the ones that aren't null or "" 
@@ -136,53 +129,60 @@ function loadRecipeByID(ID) {
                 }
             }
 
-            // Click event listener for add to cart button
-            nextBtn.addEventListener('click', function () {
-                var cardArray = document.querySelectorAll("#ingredient-card .checked");
-
-                // Loops through cards checked by user
-                for (i = 0; i < cardArray.length; i++) {
-                    var card = cardArray[i];
-                    // Adds each cards info to this object
-                    var ingredientInfo = {
-                        link: card.querySelector("a").href,
-                        image: card.querySelector("img").src,
-                        brand: card.querySelector(".brand").textContent,
-                        name: card.querySelector(".name").textContent,
-                        price: card.querySelector(".price").textContent
-                    }
-                    // Pushes cards info into array
-                    ingredientsChosen.push(ingredientInfo);
-                }
-
-                // Increases index of array by 1
-                currentIndex++;
-
-                // Checking if the end of the array has been reached
-                if (currentIndex == testIngredients.length) {
-                    ingredientContent.style.display = "none";
-                    doneContent.style.display = "block";
-                    finalIngredients(ingredientsChosen);
-                }
-                else {
-                    // Runs searchIngredients function for each ingredient in array
-                    searchIngredients(testIngredients[currentIndex]);
-                }
-            });
-
-            // Resets Modal when user reclicks button
-            modalBtn.addEventListener('click', function () {
-                currentIndex = 0;
-                searchIngredients(testIngredients[0]);
-
-                ingredientContent.style.display = "block";
-                doneContent.style.display = "none";
-            });
-
-
         })
 }
 
+function loadModal(ingredients) {
+
+    var modalBtn = document.querySelector("#modal-btn");
+    var ingredientContent = document.querySelector("#ingredient-content");
+    var nextBtn = document.querySelector("#next-btn");
+    var doneContent = document.querySelector("#done-content");
+    var ingredientsChosen = [];
+    var currentIndex = 0;
+    // Click event listener for add to cart button
+    nextBtn.addEventListener('click', function () {
+        var cardArray = document.querySelectorAll("#ingredient-card .checked");
+
+        // Loops through cards checked by user
+        for (i = 0; i < cardArray.length; i++) {
+            var card = cardArray[i];
+            // Adds each cards info to this object
+            var ingredientInfo = {
+                link: card.querySelector("a").href,
+                image: card.querySelector("img").src,
+                brand: card.querySelector(".brand").textContent,
+                name: card.querySelector(".name").textContent,
+                price: card.querySelector(".price").textContent
+            }
+            // Pushes cards info into array
+            ingredientsChosen.push(ingredientInfo);
+        }
+
+        // Increases index of array by 1
+        currentIndex++;
+
+        // Checking if the end of the array has been reached
+        if (currentIndex == ingredients.length) {
+            ingredientContent.style.display = "none";
+            doneContent.style.display = "block";
+            finalIngredients(ingredientsChosen);
+        }
+        else {
+            // Runs searchIngredients function for each ingredient in array
+            searchIngredients(ingredients[currentIndex]);
+        }
+    });
+
+    // Resets Modal when user reclicks button
+    modalBtn.addEventListener('click', function () {
+        currentIndex = 0;
+        searchIngredients(ingredients[0]);
+
+        ingredientContent.style.display = "block";
+        doneContent.style.display = "none";
+    });
+}
 loadRecipeByID("52772");
 
 // var count = 0;
