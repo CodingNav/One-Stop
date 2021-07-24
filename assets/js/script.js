@@ -378,12 +378,41 @@ if (window.location.pathname.indexOf("/recipe.html") > -1) {
 // Runs following code only on the Cart HTML Page
 if (window.location.pathname.indexOf("/cart.html") > -1) {
 
-    // Collapisble 
-
+    var chosenRecipes = document.querySelector("#chosen-recipes");
     // Collapisble Initializer
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.collapsible');
         var instances = M.Collapsible.init(elems);
       });
-    
+
+    var cart = {
+        recipes: [],
+        ingredients: []
+    };
+
+    // Checks if there was data saved in local storage already
+    // This helps add info to local storage, rather than replace
+    if (localStorage.getItem('cart') != null) {
+        cart = JSON.parse(localStorage.getItem('cart'));
+    }
+
+    for(i = 0; i < cart.recipes.length; i++) {
+        var recipe = cart.recipes[i];
+        var ingredientListHTML= "";
+        // Loops through ingredients
+        for(index = 0; index < recipe.ingredients.length; index++) {
+            ingredientListHTML += `<li>${recipe.measurements[index]} ${recipe.ingredients[index]}</li>`
+        }
+        chosenRecipes.innerHTML +=  `
+            <li>
+                <div class="collapsible-header"><i class="material-icons">dehaze</i> <a href="./recipe.html?id=${recipe.ID}" target="_blank"><img src="${recipe.image}" width="100px"/></a> ${recipe.name}</div>
+                <div class="collapsible-body">
+                    <ul>
+                        ${ingredientListHTML}
+                    </ul>
+                </div>
+            </li>
+        `;
+        
+    }
 }
