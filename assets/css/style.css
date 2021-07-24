@@ -42,12 +42,10 @@ nav .brand-logo{
     margin-right: 60px;
 }
 
-
 /* home.html */
 .home-main {
     margin-top: 100px;
 }
-
 .search-bar-container {
     width: 75%;
     height: 550px;
@@ -64,12 +62,17 @@ nav .brand-logo{
     padding: 20px;
     margin: 0px 20%;
 }
-
 .card .card-image img {
     height: 200px;
     object-fit: cover;
 }
 
-
-
 /* search.html */
+.body {
+    background: #26a69a;
+    color: #26a69a ;
+    margin: 0;
+    font-family:sans-serif 'Trebuchet MS' 'Lucida Sans Unicode';
+    font-size:inherit
+
+}
