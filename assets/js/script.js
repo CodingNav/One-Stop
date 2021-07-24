@@ -41,7 +41,7 @@ function searchIngredients(ingredient) {
                                     <p class="price">$${price}</p>
                                 </div>
                             </a>
-                            <div class="card-action">
+                            <div class="card-action center-align">
                                 <i class="material-icons checkbox-outline">check_box_outline_blank</i>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ function finalIngredients(chosenIngredients) {
                         <p class="price">${price}</p>
                     </div>
                 </a>
-                <div class="card-action">
+                <div class="card-action center-align">
                     <i class="material-icons checkbox-outline">check_box</i>
                 </div>
             </div>
