@@ -91,21 +91,57 @@ function finalIngredients(chosenIngredients) {
         `;
     }
 }
-
-var count = 0;
-document.querySelector(".searchIcon").addEventListener("click", function (){
-    count += 1;
-var previousSearchLength = localStorage.getItem("lengthOfSearch");
-
-if(count >= 2){
-    for(var y = 0; y < previousSearchLength; y++){
-        document.querySelector(".column" + [y]).remove();
+//home page search
+window.onload = function () {
+    if (window.location.href === "file:///C:/Users/arlen/bootcamp-project-1/One-Stop/search.html") {
+        var homeSearch = localStorage.getItem("homeSearch");
+        searchRecipe(homeSearch);
     };
-    
+    var count = 0;
+    document.querySelector(".searchIcon").addEventListener("click", function () {
+        count += 1;
+        var previousSearchLength = localStorage.getItem("lengthOfSearch");
+        if (count >= 2) {
+            for (var y = 0; y < previousSearchLength; y++) {
+                document.querySelector(".column" + [y]).remove();
+            };
+        };
+        var recipe = document.querySelector("#search-input").value;
+        searchRecipe(recipe);
+    });
 };
-    var recipe = document.querySelector("#search-input").value;
-    searchRecipe(recipe);
+
+document.querySelector(".searchBtn").addEventListener("click", function (e) {
+    e.preventDefault();
+    var homeSearch = document.querySelector(".homeSearch").value;
+    localStorage.setItem("homeSearch", homeSearch);
+    if (homeSearch !== " ") {
+        window.location.href = "search.html";
+    };
 });
+
+
+
+//creates a button click counter inorder to know how many searches have been ran
+//if more than one search has been ran the cards from the previous search are deleted
+//in order to prevent them from overlapping with the cards of the new search
+// var count = 0;
+// document.querySelector(".searchIcon").addEventListener("click", function () {
+// count += 1;
+// console.log(helllo);
+// var previousSearchLength = localStorage.getItem("lengthOfSearch");
+
+// if (count >= 2) {
+//     for (var y = 0; y < previousSearchLength; y++) {
+//         document.querySelector(".column" + [y]).remove();
+//     };
+
+// };
+
+//the value of the search-input from search.html is input into the receipe api
+// var recipe = document.querySelector("#search-input").value;
+// searchRecipe(recipe);
+// });
 
 
 
@@ -127,10 +163,10 @@ function searchRecipe(recipe) {
 
 function recipeCard(data, length) {
     //data from recipe api is passed to this function and used to get the recipe names and recipe descriptions
-   
+
 
     for (var x = 0; x < length; x++) {
-        
+
 
         // var rowDiv = document.createElement('div');
         var colDiv = document.createElement('div');
@@ -172,12 +208,12 @@ function recipeCard(data, length) {
         p.className = "p" + [x];
         document.querySelector(".p" + [x]).textContent = data.meals[x].strCategory; //Description of meal
     };
-    
+
 };
 
 // Runs searchRecipe function only on the Search HTML Page
 if (window.location.pathname.indexOf("/search.html") > -1) {
-    
+
 }
 
 // Runs code for modal only on the Modal HTML Page
