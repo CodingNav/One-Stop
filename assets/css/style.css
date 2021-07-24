@@ -1,3 +1,5 @@
+/* Ying's CSS */
+
 .center {
     display: flex;
     justify-content: center;
@@ -71,6 +73,7 @@ nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .d
 /* home.html */
 
 
+
 /* TODO: ADD & STYLE --BACKGROUND IMAGE */
 .search-bar-container {
     width: 100%;
@@ -96,17 +99,15 @@ nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .d
     padding: 30px;
     margin: 0px 20%;
 }
+
 .search-bar:hover {
     box-shadow: 0 0 20px 10px #c3e3d7;
 }
-
 
 .card .card-image img {
     height: 200px;
     object-fit: cover;
 }
-
-
 
 /* search.html */
 /* TODO: ADD -- CARDS STYLING 
@@ -150,3 +151,4 @@ body {
     margin-bottom: 5px;
 }
 
+/* Shola's CSS */
