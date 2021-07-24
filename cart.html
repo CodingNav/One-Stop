@@ -1,75 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>One Stop</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css"/>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>One Stop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
 
 </head>
+
 <body>
-    <!--shopping cart-->
-    <h1>Shopping Cart</h1>
 
-<div class="shopping-cart">
+  <!--recipe details -->
+  <ul class="collapsible">
+    <li>
+      <div class="collapsible-header"><i class="fa-solid fa-arrow-down"></i></div>
+      <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+    </li>
+  </ul>
 
-  <div class="column-labels">
-    <label class="recipe-image"></label>
-    <label class="recipe-details"></label>
-    <label class="ingredient-price"></label>
-    <label class="ingredient-quantity"></label>
-    <label class="ingredient-removal"></label>
+  <!--shopping cart-->
+  <ul class="collection">
+    <li class="collection-item">
+      <div class="row">
+        <div class="col m2">
+          <img src="assets/images/pancakes.JPG" width="100" height="100" />
+        </div>
+        <div class="col m3">
+          <p>Brand name</p>
+          <p>Ingredients name</p>
+        </div>
+        <div class="col m3">
+          <input type="number" value="2" min="1">
+        </div>
+        <div class="col m3 right">
+          <i class="material-icons">clear</i>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <!--total-->
+  <div class="row">
+    <div class="col">
+      <label>Estimated Total</label>
+      <div class="totals-value"></div>
+      <a class="waves-effect waves-light btn">Proceed to Checkout</a>
+    </div>
   </div>
 
-  <div class="recipe">
-    <div class="recipe-image">
-      <img src="">
-    </div>
 
-    <!--recipe details -->
-    <div class="product-details">
-      <div class="product-title"></div>
-      <p class="product-description"></p>
-    </div>
 
-    <!--ingredient price-->
-    <div class=ingredientt-price">12.99</div>
-    <div class="ingredient-quantity">
-      <input type="number" value="2" min="1">
-    </div>
 
-    <!--remove ingredient-->
-    <div class="ingredient-removal">
-      <button class="remove-ingredient">
-      </button>
-    </div>
+  <script src="assets/js/script.js"></script>
 
-<!--total-->
-  <div class="totals">
-    <div class="totals-item">
-      <label>Subtotal</label>
-      <div class="totals-value" id="cart-subtotal"></div>
-    </div>
-    <div class="totals-item">
-      <label>Tax (5%)</label>
-      <div class="totals-value" id="cart-tax"></div>
-    </div>
-    <div class="totals-item">
-      <label>Shipping</label>
-      <div class="totals-value" id="cart-shipping"></div>
-    </div>
-    <div class="totals-item totals-item-total">
-      <label>Grand Total</label>
-      <div class="totals-value" id="cart-total"></div>
-    </div>
-  </div>
-      <!--checkout-->
-      <button class="checkout">Checkout</button>
-      <script src="assets/js/script.js"></script>
-</div>
 </body>
 </html>
