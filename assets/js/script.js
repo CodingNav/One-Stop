@@ -141,12 +141,19 @@ function loadRecipeByID(ID) {
                 }
             }
 
-            loadModal(ingredients);
+            var recipeObject = {
+                ID: ID,
+                name: data.meals[0].strMeal,
+                image: data.meals[0].strMealThumb,
+                measurements: measurements,
+                ingredients: ingredients,
+            }
 
+            loadModal(ingredients, recipeObject);
         })
 }
 
-function loadModal(ingredients) {
+function loadModal(ingredients, recipe) {
 
     var modalBtn = document.querySelector("#modal-btn");
     var nextBtn = document.querySelector("#next-btn");
@@ -226,6 +233,7 @@ function loadModal(ingredients) {
             // Pushes cards info into array
             cart.ingredients.push(ingredientInfo);
         }
+        cart.recipes.push(recipe);
         // Saved information to localStorage under name cart
         localStorage.setItem('cart', JSON.stringify(cart));
 
