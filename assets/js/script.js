@@ -15,8 +15,9 @@ function searchIngredients(ingredient) {
         })
         .then(function (data) {
             var ingredientCard = document.querySelector("#ingredient-card");
-
             ingredientCard.innerHTML = "";
+
+            document.querySelector("#ingredient-name").textContent = ingredient;
             // Loops through data results and grabs the data 
             for (i = 0; i < data.results.length; i++) {
                 var price = data.results[i].regularPrice;
@@ -28,15 +29,18 @@ function searchIngredients(ingredient) {
                 // Ingredient Cards for Modal added to page here
                 ingredientCard.innerHTML += `
                     <div class="col s6 m3 l2">
+                       
                         <div class="card modal-card">
-                            <div class="card-image">
-                                <img src="${image}">
-                            </div>
-                            <div class="card-content">
-                                <p><b>${brand}</b></p>
-                                <p>${name}</p>
-                                <p>$${price}</p>
-                            </div>
+                            <a href="${link}" target="_blank" style="display:block; color:black">
+                                <div class="card-image">
+                                    <img src="${image}">
+                                </div>
+                                <div class="card-content">
+                                    <p class="brand"><b>${brand}</b></p>
+                                    <p class="name">${name}</p>
+                                    <p class="price">$${price}</p>
+                                </div>
+                            </a>
                             <div class="card-action">
                                 <i class="material-icons checkbox-outline">check_box_outline_blank</i>
                             </div>
@@ -44,7 +48,48 @@ function searchIngredients(ingredient) {
                     </div> 
                     `;
             }
+            // Adds default check to first ingredient card in modal
+            var firstCard = ingredientCard.querySelector(".modal-card");
+            firstCard.querySelector(".checkbox-outline").textContent = "check_box";
+            firstCard.classList.add("checked");
         })
+}
+
+// Grabs information for each ingredient and adds it to the cards
+function finalIngredients(chosenIngredients) {
+    var chosenCards = document.querySelector("#chosen-ingredients");
+    chosenCards.innerHTML = "";
+
+    // Loops through array to get different info
+    for (i = 0; i < chosenIngredients.length; i++) {
+        var price = chosenIngredients[i].price;
+        var brand = chosenIngredients[i].brand;
+        var name = chosenIngredients[i].name;
+        var link = chosenIngredients[i].link;
+        var image = chosenIngredients[i].image;
+
+        // Chosen Cards added to Modal
+        chosenCards.innerHTML += `
+        <div class="col s6 m3 l2">
+        
+            <div class="card modal-card checked">
+                <a href="${link}" target="_blank" style="display:block; color:black">
+                    <div class="card-image">
+                        <img src="${image}">
+                    </div>
+                    <div class="card-content">
+                        <p class="brand"><b>${brand}</b></p>
+                        <p class="name">${name}</p>
+                        <p class="price">${price}</p>
+                    </div>
+                </a>
+                <div class="card-action">
+                    <i class="material-icons checkbox-outline">check_box</i>
+                </div>
+            </div>
+        </div> 
+        `;
+    }
 }
 
 // Recipes API Request
@@ -61,10 +106,10 @@ function searchRecipe(recipe) {
     });
 };
 
-function recipeCard(data, length){
+function recipeCard(data, length) {
     console.log(data); //data from recipe api is passed to this function and used to get the recipe names and recipe descriptions
     console.log(length);
-    for (var x = 0; x < length; x++){
+    for (var x = 0; x < length; x++) {
         console.log("hello");
 
         // var rowDiv = document.createElement('div');
@@ -106,36 +151,57 @@ function recipeCard(data, length){
         document.querySelector(".cardContent" + [x]).appendChild(p);
         p.className = "p" + [x];
         document.querySelector(".p" + [x]).textContent = data.meals[x].strCategory; //Description of meal
-        
+
     };
 };
 
+// Runs searchRecipe function only on the Search HTML Page
+if (window.location.pathname.indexOf("/search.html") > -1) {
+    searchRecipe("egg");
+}
 
-searchRecipe("egg");
-
-// Runs searchIngredient function only on the Modal HTML Page
+// Runs code for modal only on the Modal HTML Page
 if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     var modalBtn = document.querySelector("#modal-btn");
-    var ingredientCard = document.querySelector("#ingredient-card");
+    var ingredientModal = document.querySelector("#ingredient-modal");
     var ingredientContent = document.querySelector("#ingredient-content");
-    var addToCart = document.querySelector("#add-to-cart");
-    var finishContent = document.querySelector("#finish-content");
-    var finishBtn = document.querySelector("#finish-btn");
+    var nextBtn = document.querySelector("#next-btn");
+    var doneContent = document.querySelector("#done-content");
+    var doneBtn = document.querySelector("#done-btn");
     var testIngredients = ["Tortilla", "Mexican Cheese", "Chicken", "Jalapeno", "Peppers", "Onions", "Garlic Powder"];
     var currentIndex = 0;
+    var ingredientsChosen = [];
 
-    finishContent.style.display = "none";
+    doneContent.style.display = "none";
 
     // Click event listener for add to cart button
-    addToCart.addEventListener('click', function() {
+    nextBtn.addEventListener('click', function () {
+        var cardArray = document.querySelectorAll("#ingredient-card .checked");
+
+        // Loops through cards checked by user
+        for (i = 0; i < cardArray.length; i++) {
+            var card = cardArray[i];
+            // Adds each cards info to this object
+            var ingredientInfo = {
+                link: card.querySelector("a").href,
+                image: card.querySelector("img").src,
+                brand: card.querySelector(".brand").textContent,
+                name: card.querySelector(".name").textContent,
+                price: card.querySelector(".price").textContent
+            }
+            // Pushes cards info into array
+            ingredientsChosen.push(ingredientInfo);
+        }
+
         // Increases index of array by 1
         currentIndex++;
 
         // Checking if the end of the array has been reached
         if (currentIndex == testIngredients.length) {
             ingredientContent.style.display = "none";
-            finishContent.style.display = "block";
+            doneContent.style.display = "block";
+            finalIngredients(ingredientsChosen);
         }
         else {
             // Runs searchIngredients function for each ingredient in array
@@ -144,26 +210,56 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
     });
 
     // Resets Modal when user reclicks button
-    modalBtn.addEventListener('click', function() {
+    modalBtn.addEventListener('click', function () {
         currentIndex = 0;
         searchIngredients(testIngredients[0]);
 
         ingredientContent.style.display = "block";
-        finishContent.style.display = "none";
-    });
-
-    // For finish button
-    finishBtn.addEventListener('click', function () {
-
+        doneContent.style.display = "none";
     });
 
     // For modal card checkboxes 
-    ingredientCard.addEventListener('click', function (event) {
-
+    ingredientModal.addEventListener('click', function (event) {
         // Checks box when clicked
         if (event.target.textContent == "check_box_outline_blank") {
             event.target.textContent = "check_box";
+            event.target.parentElement.parentElement.classList.add("checked");
+        }
+        else if (event.target.textContent == "check_box") {
+            event.target.textContent = "check_box_outline_blank";
+            event.target.parentElement.parentElement.classList.remove("checked");
         }
     })
-}
 
+    // For done button
+    doneBtn.addEventListener('click', function () {
+        var cardArray = document.querySelectorAll("#chosen-ingredients .checked");
+        var cart = {
+            recipes: [],
+            ingredients: []
+        };
+
+        // Checks if there was data saved in local storage already
+        // This helps add info to local storage, rather than replace
+        if (localStorage.getItem('cart') != null) {
+            cart = JSON.parse(localStorage.getItem('cart'));
+        }
+        // Loops through cards checked by user
+        for (i = 0; i < cardArray.length; i++) {
+            var card = cardArray[i];
+            // Adds each cards info to this object
+            var ingredientInfo = {
+                link: card.querySelector("a").href,
+                image: card.querySelector("img").src,
+                brand: card.querySelector(".brand").textContent,
+                name: card.querySelector(".name").textContent,
+                price: card.querySelector(".price").textContent
+            }
+            // Pushes cards info into array
+            cart.ingredients.push(ingredientInfo);
+        }
+        // Saved information to localStorage under name cart
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+    });
+}
