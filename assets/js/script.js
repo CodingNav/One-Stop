@@ -92,6 +92,66 @@ function finalIngredients(chosenIngredients) {
     }
 }
 
+// Recipe API Request by ID
+function loadRecipeByID(ID) {
+    var recipeURL = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + ID
+
+    fetch(recipeURL) 
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
+            var recipeName = document.querySelector("#recipe-name");
+            var recipeImg = document.querySelector("#recipe-img");
+            var ingredientList = document.querySelector("#ingredient-list");
+            var recipeInstructions = document.querySelector("#recipe-instructions");
+            ingredientList.innerHTML = "";
+
+            recipeName.innerHTML = data.meals[0].strMeal;
+            recipeImg.src = data.meals[0].strMealThumb;
+            recipeInstructions.innerHTML = data.meals[0].strInstructions;
+            var tutorial = data.meals[0].strYoutube;
+            var ingredients = [];
+            var measurements = [];
+            // Loops through the strIngredient key and pushes only the ones that aren't null or "" 
+            // into the ingredients array
+            // Also, loops through the strMeasure key and pushes into the measurements array
+            for(i = 1; i < 21; i++) {
+                var ing = data.meals[0]["strIngredient" + i];
+                var measure = data.meals[0]["strMeasure" + i]; 
+                if(ing != null && ing != "") {
+                    ingredients.push(ing);
+                    measurements.push(measure);
+                    ingredientList.innerHTML += `<li>${measure} <span>${ing}</span></li>`
+                }
+            }
+
+            
+            
+
+        })
+}
+
+loadRecipeByID("52772");
+
+var count = 0;
+document.querySelector(".searchIcon").addEventListener("click", function (){
+    count += 1;
+var previousSearchLength = localStorage.getItem("lengthOfSearch");
+
+if(count >= 2){
+    for(var y = 0; y < previousSearchLength; y++){
+        document.querySelector(".column" + [y]).remove();
+    };
+    
+};
+    var recipe = document.querySelector("#search-input").value;
+    searchRecipe(recipe);
+});
+
+
+
 // Recipes API Request
 function searchRecipe(recipe) {
     //used recipe variable to input recipe search into api url
@@ -101,16 +161,19 @@ function searchRecipe(recipe) {
     }).then(function (data) {
         console.log(data);
         console.log(data.meals[0].strMeal); //gets the data for the first recipe search result
-        console.log(data.meals.length);
-        recipeCard(data, data.meals.length, data.meals[0].strMeal);
+        dataLength = data.meals.length;
+        localStorage.setItem("lengthOfSearch", dataLength);
+        recipeCard(data, data.meals.length);
     });
 };
 
+
 function recipeCard(data, length) {
-    console.log(data); //data from recipe api is passed to this function and used to get the recipe names and recipe descriptions
-    console.log(length);
+    //data from recipe api is passed to this function and used to get the recipe names and recipe descriptions
+   
+
     for (var x = 0; x < length; x++) {
-        console.log("hello");
+        
 
         // var rowDiv = document.createElement('div');
         var colDiv = document.createElement('div');
@@ -151,13 +214,13 @@ function recipeCard(data, length) {
         document.querySelector(".cardContent" + [x]).appendChild(p);
         p.className = "p" + [x];
         document.querySelector(".p" + [x]).textContent = data.meals[x].strCategory; //Description of meal
-
     };
+    
 };
 
 // Runs searchRecipe function only on the Search HTML Page
 if (window.location.pathname.indexOf("/search.html") > -1) {
-    searchRecipe("egg");
+    
 }
 
 // Runs code for modal only on the Modal HTML Page
