@@ -111,7 +111,8 @@ function recipeCard(data, length) {
     console.log(length);
     for (var x = 0; x < length; x++) {
         console.log("hello");
-        var rowDiv = document.createElement('div');
+
+        // var rowDiv = document.createElement('div');
         var colDiv = document.createElement('div');
         var cardDiv = document.createElement('div');
         var cardImage = document.createElement('div');
@@ -123,9 +124,9 @@ function recipeCard(data, length) {
         var span = document.createElement('span');
         var p = document.createElement('p');
 
-        document.querySelector(".result-container").append(rowDiv);
-        rowDiv.className = "r" + [x] + " row";
-        document.querySelector(".r" + [x]).appendChild(colDiv);
+        // document.querySelector(".result-container").append(rowDiv);
+        // rowDiv.className = "r" + [x] + " row";
+        document.querySelector(".row").append(colDiv);
         colDiv.className = "column" + [x] + " col s12 m3";
         document.querySelector(".column" + [x]).appendChild(cardDiv);
         cardDiv.className = "card" + [x] + " card";
