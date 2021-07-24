@@ -155,10 +155,12 @@ function recipeCard(data, length) {
     };
 };
 
+// Runs searchRecipe function only on the Search HTML Page
+if (window.location.pathname.indexOf("/search.html") > -1) {
+    searchRecipe("egg");
+}
 
-searchRecipe("egg");
-
-// Runs searchIngredient function only on the Modal HTML Page
+// Runs code for modal only on the Modal HTML Page
 if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     var modalBtn = document.querySelector("#modal-btn");

@@ -23,6 +23,28 @@
             border: 3px solid lightgreen;
         }
 
+        /* Modal Substitute Item Search Bar */
+        .input-field {
+            margin: 0;
+        }
+
+        #substitute-search {
+            margin: 0px 30px;
+        }
+
+        #substitute-search input {
+            margin: 0;
+            height: unset;
+            padding-left: 30px;
+        }
+
+        #substitute-search i {
+            line-height: unset;
+        }
+
+        #substitute-search .label-icon {
+            left: 0;
+        }
     </style>
 </head>
 
@@ -36,7 +58,17 @@
 
         <!-- Ingredients Modal -->
         <div class="modal-content" id="ingredient-content">
-            <h4>Pick Your Choice of Ingredient <a class="waves-effect waves-light btn right" id="next-btn">Next</a></h4>
+            <h4>Pick Your Choice of Ingredient
+                <!-- Next Button -->
+                <a class="waves-effect waves-light btn right" id="next-btn">Next</a>
+                <!-- Search Bar for substitute ingredients -->
+                <form class="right" id="substitute-search" style="display:inline-block; width:25%">
+                    <div class="input-field">
+                        <input id="search" type="search" required>
+                        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                    </div>
+                </form>
+            </h4>
             <h5 class="center-align" id="ingredient-name">Ingredient Name</h5>
 
             <!-- Modal Cards -->
@@ -45,7 +77,8 @@
 
         <!-- Finalize Modal -->
         <div class="modal-content" id="done-content">
-            <h4>Finalize your items <a class="waves-effect waves-light btn modal-close right"  id="done-btn">Done</a></h4>
+            <h4>Finalize your items <a class="waves-effect waves-light btn modal-close right" id="done-btn">Done</a>
+            </h4>
             <p><i>Click done to add final items to cart.</i></p>
 
             <!-- Chosen Ingredients Cards -->
