@@ -166,6 +166,7 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
     var modalBtn = document.querySelector("#modal-btn");
     var ingredientModal = document.querySelector("#ingredient-modal");
     var ingredientContent = document.querySelector("#ingredient-content");
+    var substituteForm = document.querySelector("#substitute-search");
     var nextBtn = document.querySelector("#next-btn");
     var doneContent = document.querySelector("#done-content");
     var doneBtn = document.querySelector("#done-btn");
@@ -175,6 +176,12 @@ if (window.location.pathname.indexOf("/modal-test.html") > -1) {
 
     doneContent.style.display = "none";
 
+
+    substituteForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        var userSubstitute = document.querySelector("#search-input").value;
+        searchIngredients(userSubstitute);
+    });
     // Click event listener for add to cart button
     nextBtn.addEventListener('click', function () {
         var cardArray = document.querySelectorAll("#ingredient-card .checked");
