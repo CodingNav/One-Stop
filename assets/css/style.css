@@ -216,6 +216,11 @@ body {
     left: 0;
 }
 
+/* Cart page collapisible CSS */
+.collapsible-body {
+    background-color: white;
+}
+
 
 
 /* Media screen for HOME.html*/

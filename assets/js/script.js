@@ -239,22 +239,21 @@ function loadModal(ingredients, recipe) {
 
     });
 }
-loadRecipeByID("52772");
 
-var count = 0;
-document.querySelector(".searchIcon").addEventListener("click", function () {
-    count += 1;
-    var previousSearchLength = localStorage.getItem("lengthOfSearch");
+// var count = 0;
+// document.querySelector(".searchIcon").addEventListener("click", function () {
+//     count += 1;
+//     var previousSearchLength = localStorage.getItem("lengthOfSearch");
 
-    if (count >= 2) {
-        for (var y = 0; y < previousSearchLength; y++) {
-            document.querySelector(".column" + [y]).remove();
-        };
+//     if (count >= 2) {
+//         for (var y = 0; y < previousSearchLength; y++) {
+//             document.querySelector(".column" + [y]).remove();
+//         };
 
-    };
-    var recipe = document.querySelector("#search-input").value;
-    searchRecipe(recipe);
-});
+//     };
+//     var recipe = document.querySelector("#search-input").value;
+//     searchRecipe(recipe);
+// });
 
 
 
@@ -336,7 +335,7 @@ if (window.location.pathname.indexOf("/search.html") > -1) {
 
 }
 
-// Runs code for modal only on the Modal HTML Page
+// Runs code for modal only on the Recipe HTML Page
 if (window.location.pathname.indexOf("/recipe.html") > -1) {
 
     var ingredientModal = document.querySelector("#ingredient-modal");
@@ -369,4 +368,22 @@ if (window.location.pathname.indexOf("/recipe.html") > -1) {
             event.target.parentElement.parentElement.classList.remove("checked");
         }
     })
+
+    var queryString = window.location.search;
+    var urlParams = new URLSearchParams(queryString);
+    var id = urlParams.get('id')
+    loadRecipeByID(id);
+}
+
+// Runs following code only on the Cart HTML Page
+if (window.location.pathname.indexOf("/cart.html") > -1) {
+
+    // Collapisble 
+
+    // Collapisble Initializer
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.collapsible');
+        var instances = M.Collapsible.init(elems);
+      });
+    
 }
