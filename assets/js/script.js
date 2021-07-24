@@ -92,6 +92,23 @@ function finalIngredients(chosenIngredients) {
     }
 }
 
+var count = 0;
+document.querySelector(".searchIcon").addEventListener("click", function (){
+    count += 1;
+var previousSearchLength = localStorage.getItem("lengthOfSearch");
+
+if(count >= 2){
+    for(var y = 0; y < previousSearchLength; y++){
+        document.querySelector(".column" + [y]).remove();
+    };
+    
+};
+    var recipe = document.querySelector("#search-input").value;
+    searchRecipe(recipe);
+});
+
+
+
 // Recipes API Request
 function searchRecipe(recipe) {
     //used recipe variable to input recipe search into api url
@@ -101,16 +118,19 @@ function searchRecipe(recipe) {
     }).then(function (data) {
         console.log(data);
         console.log(data.meals[0].strMeal); //gets the data for the first recipe search result
-        console.log(data.meals.length);
-        recipeCard(data, data.meals.length, data.meals[0].strMeal);
+        dataLength = data.meals.length;
+        localStorage.setItem("lengthOfSearch", dataLength);
+        recipeCard(data, data.meals.length);
     });
 };
 
+
 function recipeCard(data, length) {
-    console.log(data); //data from recipe api is passed to this function and used to get the recipe names and recipe descriptions
-    console.log(length);
+    //data from recipe api is passed to this function and used to get the recipe names and recipe descriptions
+   
+
     for (var x = 0; x < length; x++) {
-        console.log("hello");
+        
 
         // var rowDiv = document.createElement('div');
         var colDiv = document.createElement('div');
@@ -151,13 +171,13 @@ function recipeCard(data, length) {
         document.querySelector(".cardContent" + [x]).appendChild(p);
         p.className = "p" + [x];
         document.querySelector(".p" + [x]).textContent = data.meals[x].strCategory; //Description of meal
-
     };
+    
 };
 
 // Runs searchRecipe function only on the Search HTML Page
 if (window.location.pathname.indexOf("/search.html") > -1) {
-    searchRecipe("egg");
+    
 }
 
 // Runs code for modal only on the Modal HTML Page
