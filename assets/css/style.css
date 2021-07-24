@@ -137,6 +137,10 @@ body {
     /*  x y blur spread color*/
 }
 
+.result-container .card a {
+    color: black;
+}
+
 .result-container .card-image:hover {
     cursor: pointer;
     box-shadow: 0 0 5px 4px #afc5d7;

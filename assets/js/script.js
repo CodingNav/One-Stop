@@ -241,20 +241,20 @@ function loadModal(ingredients, recipe) {
 }
 loadRecipeByID("52772");
 
-// var count = 0;
-// document.querySelector(".searchIcon").addEventListener("click", function () {
-//     count += 1;
-//     var previousSearchLength = localStorage.getItem("lengthOfSearch");
+var count = 0;
+document.querySelector(".searchIcon").addEventListener("click", function () {
+    count += 1;
+    var previousSearchLength = localStorage.getItem("lengthOfSearch");
 
-//     if (count >= 2) {
-//         for (var y = 0; y < previousSearchLength; y++) {
-//             document.querySelector(".column" + [y]).remove();
-//         };
+    if (count >= 2) {
+        for (var y = 0; y < previousSearchLength; y++) {
+            document.querySelector(".column" + [y]).remove();
+        };
 
-//     };
-//     var recipe = document.querySelector("#search-input").value;
-//     searchRecipe(recipe);
-// });
+    };
+    var recipe = document.querySelector("#search-input").value;
+    searchRecipe(recipe);
+});
 
 
 
@@ -320,6 +320,13 @@ function recipeCard(data, length) {
         document.querySelector(".cardContent" + [x]).appendChild(p);
         p.className = "p" + [x];
         document.querySelector(".p" + [x]).textContent = data.meals[x].strCategory; //Description of meal
+
+        // Made cards take user to the recipe page
+        var recipeLink = document.createElement('a');
+        cardDiv.appendChild(recipeLink);
+        recipeLink.appendChild(cardImage);
+        recipeLink.appendChild(cardContent);
+        recipeLink.href = "./recipe.html?id=" + data.meals[x].idMeal;
     };
 
 };
