@@ -241,7 +241,7 @@ function loadModal(ingredients, recipe) {
             var ingredientExists = cart.ingredients.find(function(savedIngredient) {
                 return savedIngredient.link == ingredientInfo.link;
             })
-            if (ingredientExists == false) {
+            if (!ingredientExists) {
                   // Pushes cards info into array
                 cart.ingredients.push(ingredientInfo);
             }
@@ -250,7 +250,7 @@ function loadModal(ingredients, recipe) {
         var recipeExists = cart.recipes.find(function(savedRecipe) {
             return savedRecipe.Id == recipe.Id;
         });
-        if (recipeExists == false) {
+        if (!recipeExists) {
             cart.recipes.push(recipe); 
         }
         // Saved information to localStorage under name cart
