@@ -38,7 +38,7 @@ function searchIngredients(ingredient) {
                                 <div class="card-content">
                                     <p class="brand"><b>${brand}</b></p>
                                     <p class="name">${name}</p>
-                                    <p class="price">$${price}</p>
+                                    <p>$<span class="price">${price}</span></p>
                                 </div>
                             </a>
                             <div class="card-action center-align">
@@ -115,7 +115,7 @@ function loadRecipeByID(Id) {
         .then(function (data) {
             console.log(data);
 
-            var orderedInstructions = data.meals[0].strInstructions.split("\r\n");
+            var orderedInstructions = data.meals[0].strInstructions.split(".");
             var recipeName = document.querySelector("#recipe-name");
             var recipeImg = document.querySelector("#recipe-img");
             var ingredientList = document.querySelector("#ingredient-list");
@@ -129,7 +129,9 @@ function loadRecipeByID(Id) {
             tutorialVideo.src = data.meals[0].strYoutube.replace("watch?v=", "embed/");
 
             for (i = 0; i < orderedInstructions.length; i++) {
-                recipeInstructions.innerHTML += i+1 + ". " + orderedInstructions[i] + "<br>";
+                if (orderedInstructions[i].trim() !== "") {
+                    recipeInstructions.innerHTML += "•" + orderedInstructions[i].trim().replace("\r\n", "") + "<br><br>";
+                }
             }
             var ingredients = [];
             var measurements = [];
@@ -159,7 +161,6 @@ function loadRecipeByID(Id) {
 }
 
 function loadModal(ingredients, recipe) {
-
     var modalBtn = document.querySelector("#modal-btn");
     var nextBtn = document.querySelector("#next-btn");
     var doneBtn = document.querySelector("#done-btn");
@@ -233,16 +234,40 @@ function loadModal(ingredients, recipe) {
                 image: card.querySelector("img").src,
                 brand: card.querySelector(".brand").textContent,
                 name: card.querySelector(".name").textContent,
-                price: card.querySelector(".price").textContent
+                price: card.querySelector(".price").textContent,
+                quantity: 1
             }
-            // Pushes cards info into array
-            cart.ingredients.push(ingredientInfo);
+            // Checks if new ingredient added already exists
+            var ingredientExists = cart.ingredients.find(function(savedIngredient) {
+                return savedIngredient.link == ingredientInfo.link;
+            })
+            if (!ingredientExists) {
+                  // Pushes cards info into array
+                cart.ingredients.push(ingredientInfo);
+            }
         }
-        cart.recipes.push(recipe);
+        // Checks if new recipe added already exists
+        var recipeExists = cart.recipes.find(function(savedRecipe) {
+            return savedRecipe.Id == recipe.Id;
+        });
+        if (!recipeExists) {
+            cart.recipes.push(recipe); 
+        }
         // Saved information to localStorage under name cart
         localStorage.setItem('cart', JSON.stringify(cart));
 
     });
+}
+
+// Calculates total for cart page
+function totalCalculator() {
+    var cartPrices = document.querySelectorAll(".price");
+    var valueDisplay = document.querySelector("#value-display");
+    var totalValue = 0;
+    for (i = 0; i < cartPrices.length; i++) {
+        totalValue += parseFloat(cartPrices[i].textContent);
+    }
+    valueDisplay.textContent = totalValue.toFixed(2);
 }
 
 // Recipes API Request
@@ -432,27 +457,51 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
                     <p>${cart.ingredients[i].name}</p>
                 </div>
                 <div class="col m1 center-align">
-                    <input class="center-align" type="number" value="1" min="1">
+                    <input class="quantity center-align" data-index="${i}" type="number" value="${cart.ingredients[i].quantity}" min="1">
                 </div>
                 <div class="col m2 center-align">
-                    <p>${cart.ingredients[i].price}</p>
+                    <p>$<span class="price">${cart.ingredients[i].price * cart.ingredients[i].quantity}</span></p>
                 </div>
                 <div class="col m2 center-align">
-                    <i class="material-icons" value="${i}">clear</i>
+                    <i class="material-icons" data-index="${i}">clear</i>
                 </div>
             </div>
         </li>        
         `
     }
 
+    var quantities = document.querySelectorAll(".quantity");
+    for (i = 0; i < quantities.length; i++) {
+        quantities[i].addEventListener('change', function (event) {
+            var ingIndex = event.target.getAttribute("data-index");
+            cart.ingredients[ingIndex].quantity = event.target.value;
+            // Resaves information when quantity is changed
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Changes price on page, as quantity is changed
+            var priceElement = event.target.parentElement.parentElement.querySelector(".price"); 
+            priceElement.textContent = cart.ingredients[ingIndex].quantity * cart.ingredients[ingIndex].price;
+
+            // Changes estimated total when quantity is changed
+            totalCalculator();
+        })
+    }
+
     // When x is clicked, the ingredient is removed from the array 
-    cartIngredient.addEventListener('click', function(event){
+    cartIngredient.addEventListener('click', function (event) {
         if (event.target.textContent == "clear") {
-            cart.ingredients.splice(event.target.value, 1);
+            var ingIndex = event.target.getAttribute("data-index");
+            cart.ingredients.splice(ingIndex, 1);
             event.target.parentElement.parentElement.parentElement.remove();
+
             // Resaves information when item is deleted
             localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Changes estimated total when item is deleted
+            totalCalculator();
         }
     })
+
+    totalCalculator();
 
 }
