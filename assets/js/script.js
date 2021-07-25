@@ -447,25 +447,3 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
 
 
 }
-
-/*
-
- <li class="collection-item">
-      <div class="row">
-        <div class="col m2">
-          <img src="assets/images/pancakes.JPG" width="100" height="100" />
-        </div>
-        <div class="col m3">
-          <p>Brand name</p>
-          <p>Ingredients name</p>
-        </div>
-        <div class="col m3">
-          <input type="number" value="2" min="1">
-        </div>
-        <div class="col m3 right">
-          <i class="material-icons">clear</i>
-        </div>
-      </div>
-    </li>
-
-*/
