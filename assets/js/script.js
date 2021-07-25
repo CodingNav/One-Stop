@@ -104,9 +104,9 @@ function finalIngredients(chosenIngredients) {
     }
 }
 
-// Recipe API Request by ID
-function loadRecipeByID(ID) {
-    var recipeURL = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + ID
+// Recipe API Request by Id
+function loadRecipeByID(Id) {
+    var recipeURL = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + Id
 
     fetch(recipeURL)
         .then(function (response) {
@@ -142,7 +142,7 @@ function loadRecipeByID(ID) {
             }
 
             var recipeObject = {
-                ID: ID,
+                Id: Id,
                 name: data.meals[0].strMeal,
                 image: data.meals[0].strMealThumb,
                 measurements: measurements,
@@ -240,23 +240,6 @@ function loadModal(ingredients, recipe) {
     });
 }
 
-// var count = 0;
-// document.querySelector(".searchIcon").addEventListener("click", function () {
-//     count += 1;
-//     var previousSearchLength = localStorage.getItem("lengthOfSearch");
-
-//     if (count >= 2) {
-//         for (var y = 0; y < previousSearchLength; y++) {
-//             document.querySelector(".column" + [y]).remove();
-//         };
-
-//     };
-//     var recipe = document.querySelector("#search-input").value;
-//     searchRecipe(recipe);
-// });
-
-
-
 // Recipes API Request
 function searchRecipe(recipe) {
     //used recipe variable to input recipe search into api url
@@ -332,7 +315,20 @@ function recipeCard(data, length) {
 
 // Runs searchRecipe function only on the Search HTML Page
 if (window.location.pathname.indexOf("/search.html") > -1) {
-
+    var count = 0;
+    document.querySelector(".searchIcon").addEventListener("click", function () {
+        count += 1;
+        var previousSearchLength = localStorage.getItem("lengthOfSearch");
+    
+        if (count >= 2) {
+            for (var y = 0; y < previousSearchLength; y++) {
+                document.querySelector(".column" + [y]).remove();
+            };
+    
+        };
+        var recipe = document.querySelector("#search-input").value;
+        searchRecipe(recipe);
+    });
 }
 
 // Runs code for modal only on the Recipe HTML Page
@@ -379,6 +375,8 @@ if (window.location.pathname.indexOf("/recipe.html") > -1) {
 if (window.location.pathname.indexOf("/cart.html") > -1) {
 
     var chosenRecipes = document.querySelector("#chosen-recipes");
+    var cartIngredient = document.querySelector("#cart-ingredient");
+
     // Collapisble Initializer
     document.addEventListener('DOMContentLoaded', function() {
         var elems = document.querySelectorAll('.collapsible');
@@ -405,7 +403,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
         }
         chosenRecipes.innerHTML +=  `
             <li>
-                <div class="collapsible-header"><i class="material-icons">dehaze</i> <a href="./recipe.html?id=${recipe.ID}" target="_blank"><img src="${recipe.image}" width="100px"/></a> ${recipe.name}</div>
+                <div class="collapsible-header"><i class="material-icons">dehaze</i> <a href="./recipe.html?id=${recipe.Id}" target="_blank"><img src="${recipe.image}" width="100px"/></a> ${recipe.name}</div>
                 <div class="collapsible-body">
                     <ul>
                         ${ingredientListHTML}
@@ -413,6 +411,56 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
                 </div>
             </li>
         `;
-        
     }
+
+    // Adds each ingredient from array to cart page
+    for(i = 0; i < cart.ingredients.length; i++) {
+        cartIngredient.innerHTML += `
+        <li class="collection-item">
+            <div class="row">
+                <div class="col m2">
+                    <a href="${cart.ingredients[i].link}" target="_blank">
+                        <img src="${cart.ingredients[i].image}" width="100" height="100"/>
+                    </a>
+                </div>
+                <div class="col m5">
+                    <p>${cart.ingredients[i].name}</p>
+                </div>
+                <div class="col m1 center-align">
+                    <input class="center-align" type="number" value="1" min="1">
+                </div>
+                <div class="col m2 center-align">
+                    <p>${cart.ingredients[i].price}</p>
+                </div>
+                <div class="col m2 center-align">
+                    <i class="material-icons">clear</i>
+                </div>
+            </div>
+        </li>        
+        `
+    }
+
+    
 }
+
+/*
+
+ <li class="collection-item">
+      <div class="row">
+        <div class="col m2">
+          <img src="assets/images/pancakes.JPG" width="100" height="100" />
+        </div>
+        <div class="col m3">
+          <p>Brand name</p>
+          <p>Ingredients name</p>
+        </div>
+        <div class="col m3">
+          <input type="number" value="2" min="1">
+        </div>
+        <div class="col m3 right">
+          <i class="material-icons">clear</i>
+        </div>
+      </div>
+    </li>
+
+*/
