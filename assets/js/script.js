@@ -59,10 +59,10 @@ function searchIngredients(ingredient) {
                 `
             }
             else {
-            // Adds default check to first ingredient card in modal
-            var firstCard = ingredientCard.querySelector(".modal-card");
-            firstCard.querySelector(".checkbox-outline").textContent = "check_box";
-            firstCard.classList.add("checked");
+                // Adds default check to first ingredient card in modal
+                var firstCard = ingredientCard.querySelector(".modal-card");
+                firstCard.querySelector(".checkbox-outline").textContent = "check_box";
+                firstCard.classList.add("checked");
             }
         })
 }
@@ -206,8 +206,8 @@ function loadModal(ingredients, recipe) {
         doneContent.style.display = "none";
     });
 
-     // For done button
-     doneBtn.addEventListener('click', function () {
+    // For done button
+    doneBtn.addEventListener('click', function () {
         var cardArray = document.querySelectorAll("#chosen-ingredients .checked");
         var cart = {
             recipes: [],
@@ -319,12 +319,12 @@ if (window.location.pathname.indexOf("/search.html") > -1) {
     document.querySelector(".searchIcon").addEventListener("click", function () {
         count += 1;
         var previousSearchLength = localStorage.getItem("lengthOfSearch");
-    
+
         if (count >= 2) {
             for (var y = 0; y < previousSearchLength; y++) {
                 document.querySelector(".column" + [y]).remove();
             };
-    
+
         };
         var recipe = document.querySelector("#search-input").value;
         searchRecipe(recipe);
@@ -378,10 +378,10 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
     var cartIngredient = document.querySelector("#cart-ingredient");
 
     // Collapisble Initializer
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.collapsible');
         var instances = M.Collapsible.init(elems);
-      });
+    });
 
     var cart = {
         recipes: [],
@@ -394,14 +394,14 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
         cart = JSON.parse(localStorage.getItem('cart'));
     }
 
-    for(i = 0; i < cart.recipes.length; i++) {
+    for (i = 0; i < cart.recipes.length; i++) {
         var recipe = cart.recipes[i];
-        var ingredientListHTML= "";
+        var ingredientListHTML = "";
         // Loops through ingredients
-        for(index = 0; index < recipe.ingredients.length; index++) {
+        for (index = 0; index < recipe.ingredients.length; index++) {
             ingredientListHTML += `<li>${recipe.measurements[index]} ${recipe.ingredients[index]}</li>`
         }
-        chosenRecipes.innerHTML +=  `
+        chosenRecipes.innerHTML += `
             <li>
                 <div class="collapsible-header"><i class="material-icons">dehaze</i> <a href="./recipe.html?id=${recipe.Id}" target="_blank"><img src="${recipe.image}" width="100px"/></a> ${recipe.name}</div>
                 <div class="collapsible-body">
@@ -414,7 +414,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
     }
 
     // Adds each ingredient from array to cart page
-    for(i = 0; i < cart.ingredients.length; i++) {
+    for (i = 0; i < cart.ingredients.length; i++) {
         cartIngredient.innerHTML += `
         <li class="collection-item">
             <div class="row">
@@ -440,7 +440,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
         `
     }
 
-    
+
 }
 
 /*
