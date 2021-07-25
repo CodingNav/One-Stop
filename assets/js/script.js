@@ -238,7 +238,12 @@ function loadModal(ingredients, recipe) {
             // Pushes cards info into array
             cart.ingredients.push(ingredientInfo);
         }
-        cart.recipes.push(recipe);
+        var recipeExists = cart.recipes.find(function(savedRecipe) {
+            return savedRecipe.Id == recipe.Id;
+        });
+        if (recipeExists == false) {
+            cart.recipes.push(recipe); 
+        }
         // Saved information to localStorage under name cart
         localStorage.setItem('cart', JSON.stringify(cart));
 
