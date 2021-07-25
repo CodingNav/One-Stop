@@ -115,7 +115,7 @@ function loadRecipeByID(Id) {
         .then(function (data) {
             console.log(data);
 
-            var orderedInstructions = data.meals[0].strInstructions.split("\r\n");
+            var orderedInstructions = data.meals[0].strInstructions.split(".");
             var recipeName = document.querySelector("#recipe-name");
             var recipeImg = document.querySelector("#recipe-img");
             var ingredientList = document.querySelector("#ingredient-list");
@@ -129,7 +129,9 @@ function loadRecipeByID(Id) {
             tutorialVideo.src = data.meals[0].strYoutube.replace("watch?v=", "embed/");
 
             for (i = 0; i < orderedInstructions.length; i++) {
-                recipeInstructions.innerHTML += i + 1 + ". " + orderedInstructions[i] + "<br>";
+                if (orderedInstructions[i].trim() !== "") {
+                    recipeInstructions.innerHTML += "•" + orderedInstructions[i].trim().replace("\r\n", "") + "<br><br>";
+                }
             }
             var ingredients = [];
             var measurements = [];
