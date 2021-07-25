@@ -23,56 +23,91 @@
 </head>
 
 <body>
-  <!-- nav bar -->
-  <nav class="nav-wraper bg-project-green">
-    <!-- the logo is not in side of this nav bar -->
-    <a href="home.html" class="brand-logo left ml-6">One Stop</a>
 
-    <ul class="right nav-list center">
-      <li>
-        <form>
+  <div class="container" style="background-color: white;">
+    <!--RECIPE RESULTS-->
+    <div class="row">
+      <div class="col s12 center-align">
+        <h1 id="recipe-name">Buttermilk pancakes</h1>
+        <img id="recipe-img" src="" width="400px" style="max-width:100%">
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col s12 m6">
+        <h3>Ingredients</h3>
+        <!--ingredients list-->
+        <ul id="ingredient-list">
+          <!-- <li>Measurement <span>ingredient</span></li> -->
+        </ul>
+
+        <!--add to cart btn-->
+        <!-- Modal Trigger -->
+        <a class="waves-effect waves-light btn modal-trigger" id="modal-btn" href="#ingredient-modal">Add to Cart</a>
+      </div>
+
+      <!--recipe instructions-->
+      <div class="col s12 m6">
+        <div class="recipe-instructions">
+          <h3 class="instructions"> Instructions</h3>
+          <p id="recipe-instructions"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m12 center-align">
+        <!-- Youtube Tutorial -->
+        <iframe id="tutorial" width="840" height="473" src="" title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen style="max-width:100%"></iframe>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- MODAL HTML (NAVLEEN) -->
+
+  <!-- Modal Structure -->
+  <div id="ingredient-modal" class="modal bottom-sheet">
+
+    <!-- Ingredients Modal -->
+    <div class="modal-content" id="ingredient-content">
+      <h4>Pick Your Choice of Ingredient
+        <!-- Next Button -->
+        <a class="waves-effect waves-light btn right" id="next-btn">Next</a>
+        <!-- Search Bar for substitute ingredients -->
+        <form class="right" id="substitute-search" style="display:inline-block; width:25%">
           <div class="input-field">
-            <input id="search-input" type="search" required>
-            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-            <i class="material-icons">close</i>
+            <input id="search-input" type="search" placeholder="Enter substitute item" autocomplete="off" required>
+            <label class="label-icon" for="search-input"><i class="material-icons">search</i></label>
           </div>
         </form>
-      </li>
-      <li><a href="cart.html" class="fas fa-shopping-cart"></a></li>
-    </ul>
-  </nav>
-  <!--recipe results-->
-  <h2 class="recipe-name" id="recipe-name">Buttermilk pancakes</h2>
-  <img class="w3-card-4"src="assets/images/pancakes.JPG" alt="pic of pancakes" style="width:500px;  height:200px;">
-  <!--ingredients list-->
-  <div class="row">
-    <div class="col s6 m6">
-      <div class="card-panel">
-        <ul>
-          <li>ingredients</li>
-          <li>ingredients</li>
-          <li>ingredients</i>
-          <li>ingredients</li>
-          <li>ingredients</li>
-        </ul>
-        <!--add to cart btn-->
-        <a class="waves-effect waves-light btn">add to cart</a>
-      </div>
+      </h4>
+      <h5 class="center-align" id="ingredient-name">Ingredient Name</h5>
+
+      <!-- Modal Cards -->
+      <div class="row" id="ingredient-card"></div>
+    </div>
+
+    <!-- Finalize Modal -->
+    <div class="modal-content" id="done-content">
+      <h4>Finalize your items <a class="waves-effect waves-light btn modal-close right" id="done-btn">Done</a>
+      </h4>
+      <p><i>Click done to add final items to cart.</i></p>
+
+      <!-- Chosen Ingredients Cards -->
+      <div class="row" id="chosen-ingredients"></div>
     </div>
   </div>
-  <!--recipe instructions-->
-  <div class="row">
-    <div class="col s6 m6">
-      <div class="recipe-instructions">
-        <h3 class="instructions"> Instructions</h3>
-        <p>instructions for the reccipe Lorem ipsum dolor sit amet consectetur adipisicing elit.
-          Fugiat quidem ducimus quasi asperiores
-          facere ex nihil,
-          aut consequuntur dolore suscipit non itaque officia? Amet dignissimos ratione,
-          fugit ipsam voluptatem doloribus!</p>
-      </div>
-    </div>
-  </div>
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
 
