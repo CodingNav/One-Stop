@@ -235,9 +235,16 @@ function loadModal(ingredients, recipe) {
                 price: card.querySelector(".price").textContent,
                 quantity: 1
             }
-            // Pushes cards info into array
-            cart.ingredients.push(ingredientInfo);
+            // Checks if new ingredient added already exists
+            var ingredientExists = cart.ingredients.find(function(savedIngredient) {
+                return savedIngredient.link == ingredientInfo.link;
+            })
+            if (ingredientExists == false) {
+                  // Pushes cards info into array
+                cart.ingredients.push(ingredientInfo);
+            }
         }
+        // Checks if new recipe added already exists
         var recipeExists = cart.recipes.find(function(savedRecipe) {
             return savedRecipe.Id == recipe.Id;
         });
