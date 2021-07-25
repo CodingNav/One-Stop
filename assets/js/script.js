@@ -59,10 +59,10 @@ function searchIngredients(ingredient) {
                 `
             }
             else {
-            // Adds default check to first ingredient card in modal
-            var firstCard = ingredientCard.querySelector(".modal-card");
-            firstCard.querySelector(".checkbox-outline").textContent = "check_box";
-            firstCard.classList.add("checked");
+                // Adds default check to first ingredient card in modal
+                var firstCard = ingredientCard.querySelector(".modal-card");
+                firstCard.querySelector(".checkbox-outline").textContent = "check_box";
+                firstCard.classList.add("checked");
             }
         })
 }
@@ -104,9 +104,9 @@ function finalIngredients(chosenIngredients) {
     }
 }
 
-// Recipe API Request by ID
-function loadRecipeByID(ID) {
-    var recipeURL = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + ID
+// Recipe API Request by Id
+function loadRecipeByID(Id) {
+    var recipeURL = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + Id
 
     fetch(recipeURL)
         .then(function (response) {
@@ -115,17 +115,22 @@ function loadRecipeByID(ID) {
         .then(function (data) {
             console.log(data);
 
+            var orderedInstructions = data.meals[0].strInstructions.split("\r\n");
             var recipeName = document.querySelector("#recipe-name");
             var recipeImg = document.querySelector("#recipe-img");
             var ingredientList = document.querySelector("#ingredient-list");
             var recipeInstructions = document.querySelector("#recipe-instructions");
+            var tutorialVideo = document.querySelector("#tutorial");
             ingredientList.innerHTML = "";
 
             recipeName.innerHTML = data.meals[0].strMeal;
             recipeImg.src = data.meals[0].strMealThumb;
-            recipeInstructions.innerHTML = data.meals[0].strInstructions;
-            var tutorial = data.meals[0].strYoutube;
+            // recipeInstructions.innerHTML = data.meals[0].strInstructions;
+            tutorialVideo.src = data.meals[0].strYoutube.replace("watch?v=", "embed/");
 
+            for (i = 0; i < orderedInstructions.length; i++) {
+                recipeInstructions.innerHTML += i+1 + ". " + orderedInstructions[i] + "<br>";
+            }
             var ingredients = [];
             var measurements = [];
             // Loops through the strIngredient key and pushes only the ones that aren't null or "" 
@@ -142,7 +147,7 @@ function loadRecipeByID(ID) {
             }
 
             var recipeObject = {
-                ID: ID,
+                Id: Id,
                 name: data.meals[0].strMeal,
                 image: data.meals[0].strMealThumb,
                 measurements: measurements,
@@ -206,8 +211,8 @@ function loadModal(ingredients, recipe) {
         doneContent.style.display = "none";
     });
 
-     // For done button
-     doneBtn.addEventListener('click', function () {
+    // For done button
+    doneBtn.addEventListener('click', function () {
         var cardArray = document.querySelectorAll("#chosen-ingredients .checked");
         var cart = {
             recipes: [],
@@ -239,23 +244,6 @@ function loadModal(ingredients, recipe) {
 
     });
 }
-
-// var count = 0;
-// document.querySelector(".searchIcon").addEventListener("click", function () {
-//     count += 1;
-//     var previousSearchLength = localStorage.getItem("lengthOfSearch");
-
-//     if (count >= 2) {
-//         for (var y = 0; y < previousSearchLength; y++) {
-//             document.querySelector(".column" + [y]).remove();
-//         };
-
-//     };
-//     var recipe = document.querySelector("#search-input").value;
-//     searchRecipe(recipe);
-// });
-
-
 
 // Recipes API Request
 function searchRecipe(recipe) {
@@ -332,7 +320,20 @@ function recipeCard(data, length) {
 
 // Runs searchRecipe function only on the Search HTML Page
 if (window.location.pathname.indexOf("/search.html") > -1) {
+    var count = 0;
+    document.querySelector(".searchIcon").addEventListener("click", function () {
+        count += 1;
+        var previousSearchLength = localStorage.getItem("lengthOfSearch");
 
+        if (count >= 2) {
+            for (var y = 0; y < previousSearchLength; y++) {
+                document.querySelector(".column" + [y]).remove();
+            };
+
+        };
+        var recipe = document.querySelector("#search-input").value;
+        searchRecipe(recipe);
+    });
 }
 
 // Runs code for modal only on the Recipe HTML Page
@@ -379,11 +380,13 @@ if (window.location.pathname.indexOf("/recipe.html") > -1) {
 if (window.location.pathname.indexOf("/cart.html") > -1) {
 
     var chosenRecipes = document.querySelector("#chosen-recipes");
+    var cartIngredient = document.querySelector("#cart-ingredient");
+
     // Collapisble Initializer
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         var elems = document.querySelectorAll('.collapsible');
         var instances = M.Collapsible.init(elems);
-      });
+    });
 
     var cart = {
         recipes: [],
@@ -396,16 +399,16 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
         cart = JSON.parse(localStorage.getItem('cart'));
     }
 
-    for(i = 0; i < cart.recipes.length; i++) {
+    for (i = 0; i < cart.recipes.length; i++) {
         var recipe = cart.recipes[i];
-        var ingredientListHTML= "";
+        var ingredientListHTML = "";
         // Loops through ingredients
-        for(index = 0; index < recipe.ingredients.length; index++) {
+        for (index = 0; index < recipe.ingredients.length; index++) {
             ingredientListHTML += `<li>${recipe.measurements[index]} ${recipe.ingredients[index]}</li>`
         }
-        chosenRecipes.innerHTML +=  `
+        chosenRecipes.innerHTML += `
             <li>
-                <div class="collapsible-header"><i class="material-icons">dehaze</i> <a href="./recipe.html?id=${recipe.ID}" target="_blank"><img src="${recipe.image}" width="100px"/></a> ${recipe.name}</div>
+                <div class="collapsible-header"><i class="material-icons">dehaze</i> <a href="./recipe.html?id=${recipe.Id}" target="_blank"><img src="${recipe.image}" width="100px"/></a> ${recipe.name}</div>
                 <div class="collapsible-body">
                     <ul>
                         ${ingredientListHTML}
@@ -413,6 +416,43 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
                 </div>
             </li>
         `;
-        
     }
+
+    // Adds each ingredient from array to cart page
+    for (i = 0; i < cart.ingredients.length; i++) {
+        cartIngredient.innerHTML += `
+        <li class="collection-item">
+            <div class="row">
+                <div class="col m2">
+                    <a href="${cart.ingredients[i].link}" target="_blank">
+                        <img src="${cart.ingredients[i].image}" width="100" height="100"/>
+                    </a>
+                </div>
+                <div class="col m5">
+                    <p>${cart.ingredients[i].name}</p>
+                </div>
+                <div class="col m1 center-align">
+                    <input class="center-align" type="number" value="1" min="1">
+                </div>
+                <div class="col m2 center-align">
+                    <p>${cart.ingredients[i].price}</p>
+                </div>
+                <div class="col m2 center-align">
+                    <i class="material-icons" value="${i}">clear</i>
+                </div>
+            </div>
+        </li>        
+        `
+    }
+
+    // When x is clicked, the ingredient is removed from the array 
+    cartIngredient.addEventListener('click', function(event){
+        if (event.target.textContent == "clear") {
+            cart.ingredients.splice(event.target.value, 1);
+            event.target.parentElement.parentElement.parentElement.remove();
+            // Resaves information when item is deleted
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    })
+
 }
