@@ -449,7 +449,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
                     <p>$<span class="price">${cart.ingredients[i].price * cart.ingredients[i].quantity}</span></p>
                 </div>
                 <div class="col m2 center-align">
-                    <i class="material-icons" value="${i}">clear</i>
+                    <i class="material-icons" data-index="${i}">clear</i>
                 </div>
             </div>
         </li>        
@@ -459,7 +459,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
     var quantities = document.querySelectorAll(".quantity");
     for (i = 0; i < quantities.length; i++) {
         quantities[i].addEventListener('change', function (event) {
-            var ingIndex = event.target.getAttribute("data-index")
+            var ingIndex = event.target.getAttribute("data-index");
             cart.ingredients[ingIndex].quantity = event.target.value;
             // Resaves information when quantity is changed
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -476,8 +476,10 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
     // When x is clicked, the ingredient is removed from the array 
     cartIngredient.addEventListener('click', function (event) {
         if (event.target.textContent == "clear") {
-            cart.ingredients.splice(event.target.value, 1);
+            var ingIndex = event.target.getAttribute("data-index");
+            cart.ingredients.splice(ingIndex, 1);
             event.target.parentElement.parentElement.parentElement.remove();
+
             // Resaves information when item is deleted
             localStorage.setItem('cart', JSON.stringify(cart));
 
