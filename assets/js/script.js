@@ -247,7 +247,13 @@ function loadModal(ingredients, recipe) {
 
 // Calculates total for cart page
 function totalCalculator() {
-
+    var cartPrices = document.querySelectorAll(".price");
+    var valueDisplay = document.querySelector("#value-display");
+    var totalValue = 0;
+    for (i = 0; i < cartPrices.length; i++) {
+        totalValue += parseFloat(cartPrices[i].textContent);
+    }
+    valueDisplay.textContent = totalValue.toFixed(2);
 }
 
 // Recipes API Request
@@ -457,6 +463,8 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
             cart.ingredients[ingIndex].quantity = event.target.value;
             // Resaves information when quantity is changed
             localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Changes price on page, as quantity is changed
             var priceElement = event.target.parentElement.parentElement.querySelector(".price"); 
             priceElement.textContent = cart.ingredients[ingIndex].quantity * cart.ingredients[ingIndex].price
         })
@@ -471,5 +479,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
             localStorage.setItem('cart', JSON.stringify(cart));
         }
     })
+
+    totalCalculator();
 
 }
