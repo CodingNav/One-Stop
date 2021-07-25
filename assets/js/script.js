@@ -129,7 +129,7 @@ function loadRecipeByID(Id) {
             tutorialVideo.src = data.meals[0].strYoutube.replace("watch?v=", "embed/");
 
             for (i = 0; i < orderedInstructions.length; i++) {
-                recipeInstructions.innerHTML += i+1 + ". " + orderedInstructions[i] + "<br>";
+                recipeInstructions.innerHTML += i + 1 + ". " + orderedInstructions[i] + "<br>";
             }
             var ingredients = [];
             var measurements = [];
@@ -159,7 +159,6 @@ function loadRecipeByID(Id) {
 }
 
 function loadModal(ingredients, recipe) {
-
     var modalBtn = document.querySelector("#modal-btn");
     var nextBtn = document.querySelector("#next-btn");
     var doneBtn = document.querySelector("#done-btn");
@@ -233,7 +232,8 @@ function loadModal(ingredients, recipe) {
                 image: card.querySelector("img").src,
                 brand: card.querySelector(".brand").textContent,
                 name: card.querySelector(".name").textContent,
-                price: card.querySelector(".price").textContent
+                price: card.querySelector(".price").textContent,
+                quantity: 1
             }
             // Pushes cards info into array
             cart.ingredients.push(ingredientInfo);
@@ -243,6 +243,11 @@ function loadModal(ingredients, recipe) {
         localStorage.setItem('cart', JSON.stringify(cart));
 
     });
+}
+
+// Calculates total for cart page
+function totalCalculator() {
+
 }
 
 // Recipes API Request
@@ -432,7 +437,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
                     <p>${cart.ingredients[i].name}</p>
                 </div>
                 <div class="col m1 center-align">
-                    <input class="center-align" type="number" value="1" min="1">
+                    <input class="quantity center-align" data-index="${i}" type="number" value="${cart.ingredients[i].quantity}" min="1">
                 </div>
                 <div class="col m2 center-align">
                     <p>${cart.ingredients[i].price}</p>
@@ -445,8 +450,18 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
         `
     }
 
+    var quantities = document.querySelectorAll(".quantity");
+    for (i = 0; i < quantities.length; i++) {
+        quantities[i].addEventListener('change', function (event) {
+            var ingIndex = event.target.getAttribute("data-index")
+            cart.ingredients[ingIndex].quantity = event.target.value;
+            // Resaves information when quantity is changed
+            localStorage.setItem('cart', JSON.stringify(cart));
+        })
+    }
+
     // When x is clicked, the ingredient is removed from the array 
-    cartIngredient.addEventListener('click', function(event){
+    cartIngredient.addEventListener('click', function (event) {
         if (event.target.textContent == "clear") {
             cart.ingredients.splice(event.target.value, 1);
             event.target.parentElement.parentElement.parentElement.remove();
