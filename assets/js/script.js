@@ -115,17 +115,22 @@ function loadRecipeByID(Id) {
         .then(function (data) {
             console.log(data);
 
+            var orderedInstructions = data.meals[0].strInstructions.split("\r\n");
             var recipeName = document.querySelector("#recipe-name");
             var recipeImg = document.querySelector("#recipe-img");
             var ingredientList = document.querySelector("#ingredient-list");
             var recipeInstructions = document.querySelector("#recipe-instructions");
+            var tutorialVideo = document.querySelector("#tutorial");
             ingredientList.innerHTML = "";
 
             recipeName.innerHTML = data.meals[0].strMeal;
             recipeImg.src = data.meals[0].strMealThumb;
-            recipeInstructions.innerHTML = data.meals[0].strInstructions;
-            var tutorial = data.meals[0].strYoutube;
+            // recipeInstructions.innerHTML = data.meals[0].strInstructions;
+            tutorialVideo.src = data.meals[0].strYoutube.replace("watch?v=", "embed/");
 
+            for (i = 0; i < orderedInstructions.length; i++) {
+                recipeInstructions.innerHTML += i+1 + ". " + orderedInstructions[i] + "<br>";
+            }
             var ingredients = [];
             var measurements = [];
             // Loops through the strIngredient key and pushes only the ones that aren't null or "" 
