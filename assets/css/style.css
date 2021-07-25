@@ -137,7 +137,30 @@ body {
 }
 
 /* Shola's CSS */
+/*recipe.html*/
 
+.h2.recipe-name {
+    font-size:1.5em ;
+    font-weight: 2.0em;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.w3-card-4 {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    padding:inherit;
+}
+
+.row{
+    padding: 0 20px;
+    font-family: 'Monofett', cursive;   
+     font-weight: 80px;
+    font-size: 1rem;
+    background: #fff; /*rgb(179, 171, 183) */
+    color: #91b2d2;
+    
+}
 
 
 

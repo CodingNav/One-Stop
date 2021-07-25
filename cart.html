@@ -14,11 +14,28 @@
 </head>
 
 <body>
+  <!-- nav bar -->
+  <nav class="nav-wraper bg-project-green">
+    <!-- the logo is not in side of this nav bar -->
+    <a href="home.html" class="brand-logo left ml-6">One Stop</a>
 
+    <ul class="right nav-list center">
+      <li>
+        <form>
+          <div class="input-field">
+            <input id="search-input" type="search" required>
+            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
+          </div>
+        </form>
+      </li>
+      <li><a href="cart.html" class="fas fa-shopping-cart"></a></li>
+    </ul>
+  </nav>
   <!--recipe details -->
   <ul class="collapsible">
     <li>
-      <div class="collapsible-header"><i class="fa-solid fa-arrow-down"></i></div>
+      <div class="collapsible-header"><i class="material-icons">expand_more</i>First</div>
       <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
     </li>
   </ul>
@@ -55,8 +72,8 @@
 
 
 
-
   <script src="assets/js/script.js"></script>
 
 </body>
+
 </html>
