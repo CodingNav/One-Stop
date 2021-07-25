@@ -466,7 +466,10 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
 
             // Changes price on page, as quantity is changed
             var priceElement = event.target.parentElement.parentElement.querySelector(".price"); 
-            priceElement.textContent = cart.ingredients[ingIndex].quantity * cart.ingredients[ingIndex].price
+            priceElement.textContent = cart.ingredients[ingIndex].quantity * cart.ingredients[ingIndex].price;
+
+            // Changes estimated total when quantity is changed
+            totalCalculator();
         })
     }
 
@@ -477,6 +480,9 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
             event.target.parentElement.parentElement.parentElement.remove();
             // Resaves information when item is deleted
             localStorage.setItem('cart', JSON.stringify(cart));
+
+            // Changes estimated total when item is deleted
+            totalCalculator();
         }
     })
 
