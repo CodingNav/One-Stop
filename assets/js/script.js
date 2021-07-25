@@ -38,7 +38,7 @@ function searchIngredients(ingredient) {
                                 <div class="card-content">
                                     <p class="brand"><b>${brand}</b></p>
                                     <p class="name">${name}</p>
-                                    <p class="price">$${price}</p>
+                                    <p>$<span class="price">${price}</span></p>
                                 </div>
                             </a>
                             <div class="card-action center-align">
@@ -440,7 +440,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
                     <input class="quantity center-align" data-index="${i}" type="number" value="${cart.ingredients[i].quantity}" min="1">
                 </div>
                 <div class="col m2 center-align">
-                    <p>${cart.ingredients[i].price}</p>
+                    <p>$<span class="price">${cart.ingredients[i].price * cart.ingredients[i].quantity}</span></p>
                 </div>
                 <div class="col m2 center-align">
                     <i class="material-icons" value="${i}">clear</i>
@@ -457,6 +457,8 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
             cart.ingredients[ingIndex].quantity = event.target.value;
             // Resaves information when quantity is changed
             localStorage.setItem('cart', JSON.stringify(cart));
+            var priceElement = event.target.parentElement.parentElement.querySelector(".price"); 
+            priceElement.textContent = cart.ingredients[ingIndex].quantity * cart.ingredients[ingIndex].price
         })
     }
 
