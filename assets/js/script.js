@@ -438,12 +438,21 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
                     <p>${cart.ingredients[i].price}</p>
                 </div>
                 <div class="col m2 center-align">
-                    <i class="material-icons">clear</i>
+                    <i class="material-icons" value="${i}">clear</i>
                 </div>
             </div>
         </li>        
         `
     }
 
+    // When x is clicked, the ingredient is removed from the array 
+    cartIngredient.addEventListener('click', function(event){
+        if (event.target.textContent == "clear") {
+            cart.ingredients.splice(event.target.value, 1);
+            event.target.parentElement.parentElement.parentElement.remove();
+            // Resaves information when item is deleted
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    })
 
 }
