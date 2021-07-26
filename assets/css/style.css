@@ -74,7 +74,7 @@ nav .input-field label i{
     margin-left: -50px;
 }
 
-/* home.html */
+/* index.html */
 
 .search-bar-container {
     width: 100%;
@@ -296,7 +296,7 @@ h2.cart-items {
 
 
 
-/* Media screen for HOME.html*/
+/* Media screen for index.html*/
 
 @media only screen and (max-width: 992px) {
     /* nav bar */
