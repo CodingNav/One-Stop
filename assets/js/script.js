@@ -378,7 +378,7 @@ if (window.location.pathname.indexOf("/recipe.html") > -1) {
 
     substituteForm.addEventListener('submit', function (event) {
         event.preventDefault();
-        var userSubstitute = document.querySelector("#search-input").value;
+        var userSubstitute = document.querySelector("#substitute-input").value;
         searchIngredients(userSubstitute);
     });
 
