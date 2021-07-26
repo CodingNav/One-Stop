@@ -69,9 +69,11 @@ nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .d
 .fa, .fas {
     font-size: 2.5rem;
 }
-nav .input-field label i{
+nav .nav-list .input-field {
+    display: flex;
+}
+nav .nav-list .input-field i{
     font-size: 2.5rem;
-    margin-left: -50px;
 }
 
 /* index.html */
