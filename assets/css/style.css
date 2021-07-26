@@ -66,6 +66,14 @@ nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .d
     box-shadow: none;
 }
 
+.fa, .fas {
+    font-size: 2.5rem;
+}
+nav .input-field label i{
+    font-size: 2.5rem;
+    margin-left: -50px;
+}
+
 /* home.html */
 
 .search-bar-container {
@@ -164,6 +172,8 @@ body {
     /* border: solid; */
     margin-bottom: 5px;
 }
+
+
 
 /* Shola's CSS */
 /*recipe.html*/
