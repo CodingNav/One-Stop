@@ -71,7 +71,6 @@ function searchIngredients(ingredient) {
 function finalIngredients(chosenIngredients) {
     var chosenCards = document.querySelector("#chosen-ingredients");
     chosenCards.innerHTML = "";
-    console.log(chosenIngredients);
 
     // Loops through array to get different info
     for (i = 0; i < chosenIngredients.length; i++) {
@@ -155,8 +154,6 @@ function loadRecipeByID(Id) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-
             var orderedInstructions = data.meals[0].strInstructions.split(".");
             var recipeName = document.querySelector("#recipe-name");
             var recipeImg = document.querySelector("#recipe-img");
