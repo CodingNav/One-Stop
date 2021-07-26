@@ -154,8 +154,6 @@ function loadRecipeByID(Id) {
             return response.json();
         })
         .then(function (data) {
-            console.log(data);
-
             var orderedInstructions = data.meals[0].strInstructions.split(".");
             var recipeName = document.querySelector("#recipe-name");
             var recipeImg = document.querySelector("#recipe-img");
@@ -246,6 +244,7 @@ function loadModal(ingredients, recipe) {
 
     // Resets Modal when user reclicks button
     modalBtn.addEventListener('click', function () {
+        ingredientsChosen = [];
         currentIndex = 0;
         searchIngredients(ingredients[0]);
 
