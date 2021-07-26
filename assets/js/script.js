@@ -103,6 +103,46 @@ function finalIngredients(chosenIngredients) {
         `;
     }
 }
+// Runs searchRecipe function only on the Search HTML Page
+if (window.location.pathname.indexOf("/search.html") > -1) {
+    //search page search
+    window.onload = function searchPage() {
+        if (window.location.href === "file:///C:/Users/arlen/bootcamp-project-1/One-Stop/search.html") {
+            var homeSearch = localStorage.getItem("homeSearch");
+            searchRecipe(homeSearch);
+        };
+
+        var count = 0; //uses a button click counter to know how many searches have been made
+        document.querySelector(".searchBtn").addEventListener("click", function (e) {
+            e.preventDefault();
+            count += 1;
+            var previousSearchLength = localStorage.getItem("lengthOfSearch");
+            if (count >= 1) {   //if more than one search has been made than the cards of the previous search are deleted and replaced with the cards of the new search.
+                for (var y = 0; y < previousSearchLength; y++) {
+                    document.querySelector(".column" + [y]).remove();
+                };
+            };
+            var recipe = document.querySelector(".resultsSearch").value;
+            var homeSearch = localStorage.getItem("homeSearch");
+
+            if (recipe === "") {
+                recipe = document.querySelector(".resultsSearch").textContent = homeSearch;
+            }
+
+            searchRecipe(recipe);
+
+        });
+    };
+};
+//home page search
+document.querySelector(".searchBtn").addEventListener("click", function (e) {
+    e.preventDefault();
+    var homeSearch = document.querySelector(".homeSearch").value;
+    localStorage.setItem("homeSearch", homeSearch);
+    if (homeSearch !== " ") {
+        window.location.href = "search.html";
+    };
+});
 
 // Recipe API Request by Id
 function loadRecipeByID(Id) {
@@ -238,20 +278,20 @@ function loadModal(ingredients, recipe) {
                 quantity: 1
             }
             // Checks if new ingredient added already exists
-            var ingredientExists = cart.ingredients.find(function(savedIngredient) {
+            var ingredientExists = cart.ingredients.find(function (savedIngredient) {
                 return savedIngredient.link == ingredientInfo.link;
             })
             if (!ingredientExists) {
-                  // Pushes cards info into array
+                // Pushes cards info into array
                 cart.ingredients.push(ingredientInfo);
             }
         }
         // Checks if new recipe added already exists
-        var recipeExists = cart.recipes.find(function(savedRecipe) {
+        var recipeExists = cart.recipes.find(function (savedRecipe) {
             return savedRecipe.Id == recipe.Id;
         });
         if (!recipeExists) {
-            cart.recipes.push(recipe); 
+            cart.recipes.push(recipe);
         }
         // Saved information to localStorage under name cart
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -277,8 +317,10 @@ function searchRecipe(recipe) {
     fetch(recipeUrl).then(function (response) {
         return response.json();
     }).then(function (data) {
-        console.log(data);
-        console.log(data.meals[0].strMeal); //gets the data for the first recipe search result
+        if (data.meals === null) {
+            searchRecipe(" ");
+            alert("There Are No Recipes Available For This Query Please Try A Different Query");
+        };
         dataLength = data.meals.length;
         localStorage.setItem("lengthOfSearch", dataLength);
         recipeCard(data, data.meals.length);
@@ -479,6 +521,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
             localStorage.setItem('cart', JSON.stringify(cart));
 
             // Changes price on page, as quantity is changed
+
             var priceElement = event.target.parentElement.parentElement.querySelector(".price"); 
             priceElement.textContent = (cart.ingredients[ingIndex].quantity * cart.ingredients[ingIndex].price).toFixed(2);
 
