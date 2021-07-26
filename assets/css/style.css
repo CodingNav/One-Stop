@@ -1,24 +1,31 @@
 /* Ying's CSS */
+
 /* for general use*/
+
 .center {
     display: flex;
     justify-content: center;
 }
+
 .bg-project-green {
     background: #c3e3d7;
 }
+
 .p-0 {
     padding: 0;
 }
+
 .heading-font {
     font-family: 'Nothing You Could Do', cursive;
     font-size: 32px;
 }
+
 .ml-6 {
     margin-left: 60px;
 }
 
 /* for nav bar */
+
 .nav-wraper {
     box-shadow: none;
     border-bottom: solid;
@@ -28,16 +35,21 @@
     padding: 15px 0 100px 0;
 }
 
-    /* nav bar logo */
-nav .brand-logo{
-    font-family: 'Monofett', cursive;    font-weight: 100px;
+/* nav bar logo */
+
+nav .brand-logo {
+    font-family: 'Monofett', cursive;
+    font-weight: 100px;
     font-size: 3rem;
-    background: #91b2d2; /*rgb(179, 171, 183) */
+    background: #91b2d2;
+    /*rgb(179, 171, 183) */
     color: #c3e3d7;
     padding: 5px 20px 10px;
     border-radius: 50px;
 }
-    /* nav search bar */
+
+/* nav search bar */
+
 .nav-list {
     margin-top: 20px;
     margin-right: 60px;
@@ -45,7 +57,7 @@ nav .brand-logo{
 
 button:focus {
     outline: none;
-    background-color:#c3e3d7;
+    background-color: #c3e3d7;
     text-shadow: 0 0 15px #1f5a95;
 }
 
@@ -55,26 +67,29 @@ nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .d
 }
 
 /* home.html */
+
 .search-bar-container {
     width: 100%;
     height: 700px;
     background: #91b2d260;
-
     background-image: url('../images/search-bg.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     opacity: 0.8;
 }
+
 .search-bar-container p {
     margin-top: 175px;
     font-size: 2rem;
 }
+
 .search-bar-container .heading-font {
     color: white;
     font-weight: bolder;
     text-shadow: 0 0 4px black;
 }
+
 .search-bar {
     background-color: #91b2d2e3;
     border-radius: 30px;
@@ -85,6 +100,7 @@ nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .d
 .search-bar:hover {
     box-shadow: 0 0 20px 10px #c3e3d7;
 }
+
 .search-bar:focus-within {
     box-shadow: 0 0 20px 10px #c3e3d7;
 }
@@ -95,16 +111,20 @@ nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-small, .btn-floating, .d
 }
 
 /* search.html */
+
 /* TODO: ADD -- CARDS STYLING 
     SEARCH - HOW TO MAKE TEXT WRAP IN A CARD*/
+
 body {
     background: #c3e3d7a9;
 }
-.row{
+
+.row {
     /* border: solid; */
     padding: 0 30px;
 }
-.card {
+
+.result-container .card {
     height: 350px;
     padding: 20px;
     background: #fff;
@@ -112,26 +132,35 @@ body {
     border-radius: 25px;
 }
 
-.card:hover{
-    box-shadow: 0 0 5px 6px #afc5d7; /*  x y blur spread color*/
-
-} 
-.card-image:hover {
-    cursor: pointer;
-    box-shadow: 0 0 5px 4px #afc5d7; /*  x y blur spread color*/
+.result-container .card:hover {
+    box-shadow: 0 0 5px 6px #afc5d7;
+    /*  x y blur spread color*/
 }
-.card .card-content {
+
+.result-container .card a {
+    color: black;
+}
+
+.result-container .card-image:hover {
+    cursor: pointer;
+    box-shadow: 0 0 5px 4px #afc5d7;
+    /*  x y blur spread color*/
+}
+
+.result-container .card .card-content {
     padding: 24px 0;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
 }
-.card .card-content .card-title {
+
+.result-container .card .card-content .card-title {
     line-height: 20px;
     font-size: 20px;
     font-weight: 600;
 }
-.card .card-content p {
+
+.result-container .card .card-content p {
     /* border: solid; */
     margin-bottom: 5px;
 }
@@ -143,14 +172,59 @@ body {
 
 
 
+/* MODAL CSS (Navleen) */
 
+#ingredient-name {
+    text-transform: capitalize;
+}
 
+/* Modal Card CSS */
 
+.modal-card {
+    height: 460px;
+}
 
+.modal-card .card-content {
+    height: 155px;
+}
+
+.checked {
+    border: 3px solid lightgreen;
+}
+
+/* Modal Substitute Item Search Bar */
+.input-field {
+    margin: 0;
+}
+
+#substitute-search {
+    margin: 0px 30px;
+}
+
+#substitute-search input {
+    margin: 0;
+    width: calc(100% - 30px);
+    height: unset;
+    padding-left: 30px;
+}
+
+#substitute-search i {
+    line-height: unset;
+}
+
+#substitute-search .label-icon {
+    left: 0;
+}
+
+/* Cart page collapisible CSS */
+.collapsible-body {
+    background-color: white;
+}
 
 
 
 /* Media screen for HOME.html*/
+
 @media only screen and (max-width: 992px) {
     /* nav bar */
     nav .brand-logo.left, nav .brand-logo.right {
@@ -161,6 +235,7 @@ body {
         margin-top: 200px;
     }
 }
+
 @media only screen and (max-width: 600px) {
     /* nav bar */
     nav .brand-logo.left, nav .brand-logo.right, .ml-6 {
@@ -207,59 +282,60 @@ body {
     }
 }
 
-
 /* Media screen for SEARCH.html*/
+
 @media only screen and (max-width: 992px) {
     .row .col.m3 {
-    width: 33%;
+        width: 33%;
     }
-
-    .card .card-content .card-title {
+    .result-container .card .card-content .card-title {
         font-size: 18px;
     }
 }
+
 @media only screen and (max-width: 800px) {
     .row .col.m3 {
-    width: 48%;
-    margin-left: 10px;
+        width: 48%;
+        margin-left: 10px;
     }
 }
+
 @media only screen and (max-width: 600px) {
     .row .col.m3 {
-    width: 90%;
-    margin-left: auto;
+        width: 90%;
+        margin-left: auto;
     }
-    .card {
+    .result-container .card {
         height: auto;
         background: #fff;
         border-radius: 20px;
     }
-    .card .card-image img {
+    .result-container .card .card-image img {
         height: 250px;
         object-fit: cover;
         object-position: center;
     }
 }
+
 @media only screen and (max-width: 300px) {
     .row .col.m3 {
-    width: 100%;
-    margin-left: auto;
+        width: 100%;
+        margin-left: auto;
     }
-
-    .card .card-content .card-title {
+    .result-container .card .card-content .card-title {
         line-height: 15px;
         font-size: 16px;
     }
-    .card .card-content p {
+    .result-container .card .card-content p {
         font-size: 12px;
     }
-    .card {
+    .result-container .card {
         height: auto;
         padding: 0;
         background: #fff;
         border-radius: 0;
     }
-    .card .card-image img {
+    .result-container .card .card-image img {
         height: 120px;
     }
 }
