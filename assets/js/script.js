@@ -71,6 +71,7 @@ function searchIngredients(ingredient) {
 function finalIngredients(chosenIngredients) {
     var chosenCards = document.querySelector("#chosen-ingredients");
     chosenCards.innerHTML = "";
+    console.log(chosenIngredients);
 
     // Loops through array to get different info
     for (i = 0; i < chosenIngredients.length; i++) {
@@ -246,6 +247,7 @@ function loadModal(ingredients, recipe) {
 
     // Resets Modal when user reclicks button
     modalBtn.addEventListener('click', function () {
+        ingredientsChosen = [];
         currentIndex = 0;
         searchIngredients(ingredients[0]);
 
