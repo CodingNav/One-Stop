@@ -107,8 +107,8 @@ function finalIngredients(chosenIngredients) {
 if (window.location.pathname.indexOf("/search.html") > -1) {
     //search page search
     window.onload = function searchPage() {
-        if (window.location.href === "file:///C:/Users/arlen/bootcamp-project-1/One-Stop/search.html") {
-            var homeSearch = localStorage.getItem("homeSearch");
+        var homeSearch = localStorage.getItem("homeSearch");
+        if (homeSearch) {
             searchRecipe(homeSearch);
         };
 
@@ -389,22 +389,22 @@ function recipeCard(data, length) {
 };
 
 // Runs searchRecipe function only on the Search HTML Page
-if (window.location.pathname.indexOf("/search.html") > -1) {
-    var count = 0;
-    document.querySelector(".searchIcon").addEventListener("click", function () {
-        count += 1;
-        var previousSearchLength = localStorage.getItem("lengthOfSearch");
+// if (window.location.pathname.indexOf("/search.html") > -1) {
+//     var count = 0;
+//     document.querySelector(".searchIcon").addEventListener("click", function () {
+//         count += 1;
+//         var previousSearchLength = localStorage.getItem("lengthOfSearch");
 
-        if (count >= 2) {
-            for (var y = 0; y < previousSearchLength; y++) {
-                document.querySelector(".column" + [y]).remove();
-            };
+//         if (count >= 2) {
+//             for (var y = 0; y < previousSearchLength; y++) {
+//                 document.querySelector(".column" + [y]).remove();
+//             };
 
-        };
-        var recipe = document.querySelector("#search-input").value;
-        searchRecipe(recipe);
-    });
-}
+//         };
+//         var recipe = document.querySelector("#search-input").value;
+//         searchRecipe(recipe);
+//     });
+// }
 
 // Runs code for modal only on the Recipe HTML Page
 if (window.location.pathname.indexOf("/recipe.html") > -1) {
