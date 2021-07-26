@@ -166,10 +166,69 @@ body {
 }
 
 /* Shola's CSS */
+/*recipe.html*/
 
+.recipe-name{
+    background:#afc5d7;
+    font-family: cursive;
+    border-radius: 50px;
+    padding: 20px;
+    font-size: 3.5rem;
+}
 
+.recipe-instructions {
+    font-family: cursive;
+    background: #afc5d7;
+    border-radius: 50px;
+    padding: 0em;
+    
+}
 
+.ingredients-list{
+    font-family: cursive;
+    background: #afc5d7;
+    border-radius: 50px;
+    padding: 0em;
+    
+}
 
+/*cart.html*/
+
+h2.header{
+        font-size: 3.56rem;
+        line-height: 110%;
+        font-family:'Monofett', cursive; 
+        background:#afc5d7;
+        border-radius: 50px;
+        padding:15px;
+    }
+
+h2.cart-items {
+        font-size: 3.56rem;
+        line-height: 110%;
+        font-family:'Monofett', cursive; 
+        background:#afc5d7;
+        border-radius: 50px;
+        padding:15px;
+    }
+    
+
+.collapsible-header{
+    background-color: lightblue;
+    font-size:24px;
+    font-family: cursive;
+}
+
+.collapsible-body{
+    background-color: lightblue;
+
+}
+
+.collection .collection-item {
+    background-color: lightblue;
+    font-family: cursive;
+    font-size: 20px;
+}
 
 
 /* MODAL CSS (Navleen) */
@@ -341,5 +400,52 @@ body {
     }
     .result-container .card .card-image img {
         height: 120px;
+    }
+}
+
+/* Media screen for RECIPE.html*/
+
+@media only screen and (max-width: 992px) {
+    .row.col.s12 center-align{
+        width: 33%;
+        margin-left: auto;
+    }
+    .recipe-name{
+        line-height:5px;
+        font-size: 1.5rem;
+        padding:5px, 10px;
+    }
+
+    .recipe-instructions{
+        line-height:4px;
+        font-size: 20px;
+        padding: 0.1rem;
+    }
+    .ingredients-list{
+        line-height: 10px;
+        font-size: 20px;
+        padding: 20px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .row .col.row.col.s12 {
+        width: 90%;
+        margin-left: auto;
+    }
+    .recipe-name {
+        height: auto;
+        background: #fff;
+        border-radius: 0px;
+    }
+    .recipe-instructions{
+        line-height:4px;
+        font-size: 25px;
+        background: #fff;
+    }
+    .ingredients-list{
+        line-height: 10px;
+        font-size: 25px;
+        background: #fff;
     }
 }
