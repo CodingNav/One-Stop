@@ -134,15 +134,18 @@ if (window.location.pathname.indexOf("/search.html") > -1) {
         });
     };
 };
-//home page search
-document.querySelector(".searchBtn").addEventListener("click", function (e) {
-    e.preventDefault();
-    var homeSearch = document.querySelector(".homeSearch").value;
-    localStorage.setItem("homeSearch", homeSearch);
-    if (homeSearch !== " ") {
-        window.location.href = "search.html";
-    };
-});
+
+if (window.location.pathname.indexOf("/index.html") > -1 || window.location.pathname == "/One-Stop/") {
+    //home page search
+    document.querySelector(".searchBtn").addEventListener("click", function (e) {
+        e.preventDefault();
+        var homeSearch = document.querySelector(".homeSearch").value;
+        localStorage.setItem("homeSearch", homeSearch);
+        if (homeSearch !== " ") {
+            window.location.href = "search.html";
+        };
+    });
+}
 
 // Recipe API Request by Id
 function loadRecipeByID(Id) {
@@ -522,7 +525,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
 
             // Changes price on page, as quantity is changed
 
-            var priceElement = event.target.parentElement.parentElement.querySelector(".price"); 
+            var priceElement = event.target.parentElement.parentElement.querySelector(".price");
             priceElement.textContent = (cart.ingredients[ingIndex].quantity * cart.ingredients[ingIndex].price).toFixed(2);
 
             // Changes estimated total when quantity is changed
