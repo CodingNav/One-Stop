@@ -107,8 +107,8 @@ function finalIngredients(chosenIngredients) {
 if (window.location.pathname.indexOf("/search.html") > -1) {
     //search page search
     window.onload = function searchPage() {
-        if (window.location.href === "file:///C:/Users/arlen/bootcamp-project-1/One-Stop/search.html") {
-            var homeSearch = localStorage.getItem("homeSearch");
+        var homeSearch = localStorage.getItem("homeSearch");
+        if (homeSearch) {
             searchRecipe(homeSearch);
         };
 
@@ -117,11 +117,9 @@ if (window.location.pathname.indexOf("/search.html") > -1) {
             e.preventDefault();
             count += 1;
             var previousSearchLength = localStorage.getItem("lengthOfSearch");
-            if (count >= 1) {   //if more than one search has been made than the cards of the previous search are deleted and replaced with the cards of the new search.
-                for (var y = 0; y < previousSearchLength; y++) {
-                    document.querySelector(".column" + [y]).remove();
-                };
-            };
+
+            document.querySelector("#card-row").innerHTML = "";
+           
             var recipe = document.querySelector(".resultsSearch").value;
             var homeSearch = localStorage.getItem("homeSearch");
 
@@ -134,15 +132,18 @@ if (window.location.pathname.indexOf("/search.html") > -1) {
         });
     };
 };
-//home page search
-document.querySelector(".searchBtn").addEventListener("click", function (e) {
-    e.preventDefault();
-    var homeSearch = document.querySelector(".homeSearch").value;
-    localStorage.setItem("homeSearch", homeSearch);
-    if (homeSearch !== " ") {
-        window.location.href = "search.html";
-    };
-});
+
+if (window.location.pathname.indexOf("/index.html") > -1 || window.location.pathname == "/One-Stop/") {
+    //home page search
+    document.querySelector(".searchBtn").addEventListener("click", function (e) {
+        e.preventDefault();
+        var homeSearch = document.querySelector(".homeSearch").value;
+        localStorage.setItem("homeSearch", homeSearch);
+        if (homeSearch !== " ") {
+            window.location.href = "search.html";
+        };
+    });
+}
 
 // Recipe API Request by Id
 function loadRecipeByID(Id) {
@@ -385,24 +386,6 @@ function recipeCard(data, length) {
 
 };
 
-// Runs searchRecipe function only on the Search HTML Page
-if (window.location.pathname.indexOf("/search.html") > -1) {
-    var count = 0;
-    document.querySelector(".searchIcon").addEventListener("click", function () {
-        count += 1;
-        var previousSearchLength = localStorage.getItem("lengthOfSearch");
-
-        if (count >= 2) {
-            for (var y = 0; y < previousSearchLength; y++) {
-                document.querySelector(".column" + [y]).remove();
-            };
-
-        };
-        var recipe = document.querySelector("#search-input").value;
-        searchRecipe(recipe);
-    });
-}
-
 // Runs code for modal only on the Recipe HTML Page
 if (window.location.pathname.indexOf("/recipe.html") > -1) {
 
@@ -522,7 +505,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
 
             // Changes price on page, as quantity is changed
 
-            var priceElement = event.target.parentElement.parentElement.querySelector(".price"); 
+            var priceElement = event.target.parentElement.parentElement.querySelector(".price");
             priceElement.textContent = (cart.ingredients[ingIndex].quantity * cart.ingredients[ingIndex].price).toFixed(2);
 
             // Changes estimated total when quantity is changed
@@ -547,4 +530,26 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
 
     totalCalculator();
 
+}
+
+var navSearch = document.querySelector("#search-input");
+if (navSearch) {
+    var navIcon = navSearch.parentElement.querySelector("button")
+    navIcon.addEventListener("click", function (e) {
+        e.preventDefault();
+        var homeSearch = navSearch.value;
+        localStorage.setItem("homeSearch", homeSearch);
+        if (homeSearch.trim() != "") {
+            window.location.href = "search.html";
+        };
+    });
+
+    navSearch.parentElement.parentElement.addEventListener('submit', function(e){
+        e.preventDefault();
+        var homeSearch = navSearch.value;
+        localStorage.setItem("homeSearch", homeSearch);
+        if (homeSearch.trim() != "") {
+            window.location.href = "search.html";
+        };
+    });
 }
