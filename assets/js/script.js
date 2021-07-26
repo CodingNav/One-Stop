@@ -117,11 +117,9 @@ if (window.location.pathname.indexOf("/search.html") > -1) {
             e.preventDefault();
             count += 1;
             var previousSearchLength = localStorage.getItem("lengthOfSearch");
-            if (count >= 1) {   //if more than one search has been made than the cards of the previous search are deleted and replaced with the cards of the new search.
-                for (var y = 0; y < previousSearchLength; y++) {
-                    document.querySelector(".column" + [y]).remove();
-                };
-            };
+
+            document.querySelector("#card-row").innerHTML = "";
+           
             var recipe = document.querySelector(".resultsSearch").value;
             var homeSearch = localStorage.getItem("homeSearch");
 
@@ -388,24 +386,6 @@ function recipeCard(data, length) {
 
 };
 
-// Runs searchRecipe function only on the Search HTML Page
-// if (window.location.pathname.indexOf("/search.html") > -1) {
-//     var count = 0;
-//     document.querySelector(".searchIcon").addEventListener("click", function () {
-//         count += 1;
-//         var previousSearchLength = localStorage.getItem("lengthOfSearch");
-
-//         if (count >= 2) {
-//             for (var y = 0; y < previousSearchLength; y++) {
-//                 document.querySelector(".column" + [y]).remove();
-//             };
-
-//         };
-//         var recipe = document.querySelector("#search-input").value;
-//         searchRecipe(recipe);
-//     });
-// }
-
 // Runs code for modal only on the Recipe HTML Page
 if (window.location.pathname.indexOf("/recipe.html") > -1) {
 
@@ -550,4 +530,26 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
 
     totalCalculator();
 
+}
+
+var navSearch = document.querySelector("#search-input");
+var navIcon = document.querySelector("#search-input + label")
+if (navSearch) {
+    navIcon.addEventListener("click", function (e) {
+        e.preventDefault();
+        var homeSearch = navSearch.value;
+        localStorage.setItem("homeSearch", homeSearch);
+        if (homeSearch.trim() != "") {
+            window.location.href = "search.html";
+        };
+    });
+
+    navSearch.parentElement.parentElement.addEventListener('submit', function(e){
+        e.preventDefault();
+        var homeSearch = navSearch.value;
+        localStorage.setItem("homeSearch", homeSearch);
+        if (homeSearch.trim() != "") {
+            window.location.href = "search.html";
+        };
+    });
 }
