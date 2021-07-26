@@ -460,7 +460,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
                     <input class="quantity center-align" data-index="${i}" type="number" value="${cart.ingredients[i].quantity}" min="1">
                 </div>
                 <div class="col m2 center-align">
-                    <p>$<span class="price">${cart.ingredients[i].price * cart.ingredients[i].quantity}</span></p>
+                    <p>$<span class="price">${(cart.ingredients[i].price * cart.ingredients[i].quantity).toFixed(2)}</span></p>
                 </div>
                 <div class="col m2 center-align">
                     <i class="material-icons" data-index="${i}">clear</i>
@@ -480,7 +480,7 @@ if (window.location.pathname.indexOf("/cart.html") > -1) {
 
             // Changes price on page, as quantity is changed
             var priceElement = event.target.parentElement.parentElement.querySelector(".price"); 
-            priceElement.textContent = cart.ingredients[ingIndex].quantity * cart.ingredients[ingIndex].price;
+            priceElement.textContent = (cart.ingredients[ingIndex].quantity * cart.ingredients[ingIndex].price).toFixed(2);
 
             // Changes estimated total when quantity is changed
             totalCalculator();
