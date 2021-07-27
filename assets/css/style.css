@@ -429,8 +429,8 @@ h2.cart-items {
     }
 
     .recipe-instructions{
-        line-height:4px;
-        font-size: 20px;
+        line-height:10px;
+        font-size: 20pxpx;
         padding: 0.1rem;
     }
     .ingredients-list{
@@ -451,8 +451,8 @@ h2.cart-items {
         border-radius: 0px;
     }
     .recipe-instructions{
-        line-height:4px;
-        font-size: 25px;
+        line-height:0.9em;;
+        font-size: 20px;
         background: #fff;
     }
     .ingredients-list{
